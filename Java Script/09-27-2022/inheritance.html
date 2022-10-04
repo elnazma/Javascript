@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CONSTRUCTOR INHERITANCE</title>
+</head>
+<body>
+		<script type="text/javascript">
+			function Employee(firstName) {
+				this.firstName = firstName;
+				this.sayHello = function (name) {
+					console.info(`Hello ${name}, my name is ${this.firstName}`);
+				}
+			}
+
+			function Manager(namaDepan, lastName) {
+				this.lastName = lastName;
+				Employee.call(this, namaDepan);
+			} 
+
+			const elva = new Manager("Elva", "Nazlita");
+			console.info(elva);
+		</script>
+</body>
+</html>

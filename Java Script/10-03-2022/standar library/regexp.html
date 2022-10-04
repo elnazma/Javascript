@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> </title>
+</head>
+<body>
+		<script type="text/javascript">
+			
+				{
+					// create regex
+
+					const regex1 = /elva/;
+					const regex2 = new RegExp("elva");
+					const regex3  = new RegExp(/elva/);
+				}
+
+				{
+					// test regex
+
+					const name = "elva nazlita maulydia";
+					const regex = /na/;
+
+					const result = regex.exec(name);
+					console.info(result);
+					console.info(regex.exec("tidak ada"));
+
+					const test = regex.test(name);
+					console.info(test);
+					console.info(regex.test("tidak ada"));
+				}
+
+				{
+					// regex modifier
+
+					const name = "elva nazlita\nElva nazlita\nElva maulydia";
+					// const regex1 = /^elva/igm;
+					// const regex1 = /^e.a/igm;
+					// const regex1 = /e.a/igm;
+					// const regex1 = /^e..a/igm;
+					const regex1 = /^e^a/igm;
+					// console.info(name);
+					let result;
+					while ((result = regex1.exec(name)) !== null){
+						console.info(result);
+					}
+					console.log(regex1.exec(name));
+					console.info(name);
+
+					const regex2 = /Nazlita/ig;
+					while ((result = regex2.exec(name)) !== null){
+						console.info(result);
+					}
+
+				}
+
+				{
+					// advance regex
+
+					const regex = /ek[aiueo]/ig;
+
+					const name = "eko eki eka eku eke edo eko eki eks";
+					console.info(name);
+					let result;
+					while ((result = regex.exec(name)) !== null){
+						console.info(result);
+					}
+				}
+
+				{
+					console.info("------------");
+					const name = "edo eko eki eka eku eke edo eko eki";
+
+					console.info(name.match(/ek[aiueo]/ig));
+					console.info(name.search(/ek[aiueo]/ig));
+					console.info(name.replace(/ek[aiueo]/i, "kamu"));
+					console.info(name.replaceAll(/ek[aiueo]/ig, "kamu"));
+					console.info(name.split(/e/ig));
+					console.info(name);
+					let gantiSemua = name.replaceAll(/ek[aiueo]/ig, "kamu");
+					console.info(gantiSemua);
+				}
+
+		</script>
+</body>
+</html>

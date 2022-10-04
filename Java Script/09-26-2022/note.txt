@@ -1,0 +1,3 @@
+Boostrap	: Harus include bootstrap.css
+JQuery		: 1). harus include file utama jquery-2.5.js 
+		  2). Harus include jquery-2.5.js & slide.js/popup.js

@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+<script type="text/javascript">
+	class MathUtill {
+			static sum(...numbers) {
+				if (numbers.length === 0){
+					throw new Error("Total parameter harus lebih dari 0");
+				}
+
+				let total = 0;
+				for (const number of numbers) {
+					total += number;
+				}
+				return total;
+			}
+		}
+
+		
+		// console.info(MathUtill.sum());
+		// console.info("Eko");
+
+		// const result = MathUtill.sum(1, 1, 1, 1, 1);
+		// console.info(result);
+
+		try{
+			console.info(MathUtill.sum());
+			console.info("Jika diatas error maka ini tidak akan dijalankan");
+		} catch (error) {
+			console.info(`Terjadi error : ${error.message}`);
+		} finally {
+			console.info("Program Selesai Dijalankan");
+		}
+
+		console.info("Selesai ya");
+
+		class Counter {
+			#counter = 1;
+
+			next() {
+				try {
+					return this.#counter;
+				} finally {
+					this.#counter++
+				}
+			}
+		}
+
+		const counter = new Counter();
+		console.info(counter.next());
+		console.info(counter.next());
+		console.info(counter.next());
+		console.info(counter.next());
+		console.info(counter.next());
+
+</script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FUNCTION DI VARIABLE</title>
+</head>
+<body>
+		<script type="text/javascript">
+			function sayHello(name){
+				console.info(`Hello ${name}`);
+			}
+
+			sayHello("Elva");
+			const say = sayHello;
+			const Elva = say;
+			say("Nazlita");
+
+			function giveMeName(callback){
+				callback("Elva");
+			}
+
+			giveMeName(sayHello);
+			giveMeName(say);
+			giveMeName(Elva);
+		</script>
+</body>
+</html>

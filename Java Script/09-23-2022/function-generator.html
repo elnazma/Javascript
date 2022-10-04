@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FUNCTION GENERATOR</title>
+</head>
+<body>
+	<script type="text/javascript">
+		function* createNames() {
+			yield "Elva";
+			yield "Nazlita";
+			yield "Maulydia";
+		}
+
+		const names = createNames();
+		for (const name of names) {
+			console.log(name);
+		}
+
+		function* buatGanjil(value) {
+			for (let i = 1; i <= value; i++) {
+				if (i % 2 === 1) {
+					console.info(`yield ${i}`);
+					yield i;
+				}
+			}
+		}
+
+		// const angkaGanjil = buatGanjil(100);
+		// for (const angka of angkaGanjil) {
+		// 	console.info(angka);
+		// }
+		// function buatGanjilArray(value) {
+		// 	const result = [];
+		// 	for (let i = 1; i <= value; i++) {
+		// 		if (i % 2 === 1) { 
+		// 			console.info(`Ini Yield ${i}`);
+		// 			 result.push(i);
+		// 		}
+		// 	}
+		// 	return result;
+		// }
+ 
+		const numbers = buatGanjil(100);
+
+
+		console.info(numbers.next().value);
+		console.info(numbers.next().value);
+		console.info(numbers.next().value);
+		
+	</script>
+</body>
+</html>

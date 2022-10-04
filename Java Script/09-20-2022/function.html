@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		let firstName2 = prompt("Apa Nama Depanmu?");
+		
+		function hello(firstName, lastName, asal){
+			document.writeln(`<p>Selamat Pagi Semua, nama saya <b>${firstName} ${lastName}</b> asal saya dari ${asal}</p>`);
+		}
+
+		hello("Elva", "Nazlita", "Pati");
+		document.writeln("<p>Paragraf pemisah</p>");
+		hello(firstName2, "Fadly", "Pati");
+		document.writeln("<p>Paragraf pemisah</p>");
+		hello("Muhammad", "Fatih", "Pati");
+		// document.writeln("<p>Saya anak pertama dari tiga bersaudara</p>");
+	</script>
+</body>
+</html>

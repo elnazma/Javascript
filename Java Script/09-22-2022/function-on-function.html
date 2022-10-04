@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>FUNCTION DALAM FUNCTION</title>
+</head>
+<body>
+		<script type="text/javascript">
+			//tidak ada batasan dimana kita bisa membuat function
+			//function yang terdapat didalam, disebut inner
+			//function bisa diisi apapun
+
+			function outer(){
+				function inner(){
+					console.info("Elva");
+				}
+
+				inner();
+				inner();
+			}
+
+			outer();
+			// inner();
+		</script>
+</body>
+</html>

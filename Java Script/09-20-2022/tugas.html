@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		// function loopNilai(nilai1, nilai2){
+		// 	let hasil_perulangan = "";
+		// 	for(nilai1; nilai1<=nilai2; nilai1++){
+		// 		hasil_perulangan += ` ${nilai1} `
+		// 	}
+		// 	return hasil_perulangan;
+		// }
+		// let nilai1 = prompt("Masukkan Nilai Pertama");
+		// let nilai2 = prompt("Masukkan Nilai Kedua");
+		// let hasil = loopNilai(nilai1,  nilai2);
+		// document.writeln(`Hasilnya adalah : ${hasil}`);
+
+		function loopNilai(nilai1, nilai2){
+			let hasil_perulangan = "";
+			nilai1 = parseInt(nilai1);
+			nilai12 = parseInt(nilai2);
+			for(let nilai1; nilai1<=nilai2; nilai1++){
+				if(nilai1%2 == 0){
+					hasil_perulangan += ` ${nilai1} `;
+				}
+				console.log(a)
+			}
+			
+			return hasil_perulangan;
+		}
+		let inpNilai1 = prompt("Masukkan Nilai Pertama");
+		let inpNilai2 = prompt("Masukkan Nilai Kedua");
+		let hasil = loopNilai(inpNilai1, inpNilai2);
+		document.writeln(`Hasilnya adalah :  ${hasil}`);
+	</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>OBJECT METHOD</title>
+</head>
+<body>
+		<script type="text/javascript">
+			const person = {
+				name: "Elva",
+				sayHello: (name) => alert(`Hello ${name	}`)
+				
+			};
+
+			person.sayHello('Nazlita');
+
+			// menambahkan method ke object
+			const orang = {
+				name: "Elva"
+			};
+
+			orang.sayHello =  function (name) {
+				alert(`Hello ${name}`);
+			}
+
+			orang.sayHello = name => alert(`Hello ${name}`)
+			orang.sayHello('Elva');
+
+		</script>
+</body>
+</html>

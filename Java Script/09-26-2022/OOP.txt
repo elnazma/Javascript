@@ -1,0 +1,13 @@
+1. Object adalah data yang berisi 2 : field / properties / attributes dan method / function / behavior
+2. Class adalah blueprint, prototype atau cetakan untuk membuat object
+3. Class berisikan deklarasi semua properties dan function yang dimiliki object
+4. Setiap object selalu dibuat dari Class
+5. Sebuah Class bisa membuat object tanpa batas
+6. Class tidak bisa langsung dipakai karena hanya cetakan, yang dipakai adalah objectnya
+
+Membuat Constructor Function
+1. Sebelum ES6, pembuatan class biasanya membuat function
+	(Untuk menuliskan Constructor Function diawali huruf kapital)
+2. Se.telah kita membuat object kita bisa dengan mudah menambahkan property ke dalam object tersebut hanya 
+
+

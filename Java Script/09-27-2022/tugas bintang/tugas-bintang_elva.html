@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tugas 27-09-2022</title>
+</head>
+<body>
+		<script type="text/javascript">
+			function kotak(panjang) {
+    			let hasil = '';
+    			for (let i = 0; i < panjang; i++) { //baris
+        		for (let j = 0; j < panjang; j++) { //kolom
+            	hasil += '* ';
+        	}
+        		hasil += '<br>';
+   			}
+    			return hasil;
+			}
+			document.writeln(kotak(10));
+			document.writeln('<br>');
+
+
+			function segitiga1(panjang) {
+				let hasil = '';
+				for (let i = 0; i < panjang; i++){
+					for (let j = 0; j <= i; j++){
+						hasil += '* ';
+					}
+
+					hasil += '<br>';
+				}
+
+				return hasil;
+			}
+			document.writeln(segitiga1(10));
+			document.writeln('<br>');
+
+
+			function segitigaTerbalik(panjang) {
+				let hasil = '';
+				for (let i = 0; i <= panjang; i++){
+					for (let j = i; j < panjang; j++){
+						hasil += '* ';
+					}
+
+					hasil += '<br>';
+				}
+
+				return hasil;
+			}
+			document.writeln(segitigaTerbalik(10));
+			document.writeln('<br>');
+
+
+			function segitiga2(panjang) {
+    			let hasil = '';
+    			for (let i = 0; i <=9; i++) {
+        		for (let j = 0; j <= i; j++) {
+            	hasil += `${i}`;
+       		}
+        	hasil += '<br>';
+    		}
+    		return hasil;
+			}
+			document.writeln(segitiga2(10));
+			document.writeln('<br>');
+
+
+			function segitigaaa(panjang) {
+    			let hasil = '';
+    			for (let i = 0; i < panjang; i++) {
+        		for (let j = 9; j >= i; j--) {
+            	hasil += `${i}`;
+       		}
+        	hasil += '<br>';
+    		}
+    		return hasil;
+			}
+			document.writeln(segitigaaa(10));
+			document.writeln('<br>');
+
+
+			function segitiga3(panjang) {
+				let hasil = '';
+				for (let i = panjang; i > 0; i--){
+					for (let j = i; j <= panjang; j++){
+						if (j >= i){
+							hasil += `${i}`;
+						}
+						
+					}
+
+					hasil += '<br>';
+				}
+
+				return hasil;
+			}
+			document.writeln(segitiga3(10));
+			document.writeln('<br>');
+
+
+			function siku(panjang) {
+				let hasil = '';
+				for (let i = 1; i < panjang; i++){
+					for (let j = panjang; j > i; j--){
+						if (j >= i){
+							hasil += `${i}`;
+						}
+						
+					}
+
+					hasil += '<br>';
+				}
+
+				return hasil;
+			}
+			document.writeln(siku(10));
+			document.writeln('<br>');
+
+
+			function piramida(panjang) {
+				let hasil = '';
+				for (let i = 1; i <= 10; i++){
+					for (let j = i; j <= 10; j++){
+							hasil += '_';
+					} {
+						for (let k = 1; k <= 1; k++) {
+							hasil += '*';
+						}
+						for (let l = 1; l <= i; l++) {
+							hasil += '*';
+					}
+
+					hasil += '<br>';
+					}
+				}
+
+				return hasil;
+			}
+			document.writeln(piramida(10));
+			document.writeln('<br>');
+
+
+			function piramida2(panjang) {
+				let hasil = '';
+				for (let i = 1; i <= 10; i++){
+					for (let j = 1; j <= i; j++){
+							hasil += '_';
+					} {
+						for (let k = i; k <= 10; k++) {
+							hasil += '*';
+						}
+						for (let l = i + 1; l <= 10; l++) {
+							hasil += '*';
+					}
+
+					hasil += '<br>';
+					}
+				}
+
+				return hasil;
+			}
+			document.writeln(piramida2(10));
+			document.writeln('<br>');
+		</script>
+</body>
+</html>

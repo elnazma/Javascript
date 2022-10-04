@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> </title>
+</head>
+<body>
+		<script type="text/javascript">
+			class Person {
+				say(name){
+					if(name){
+						this.#sayWithName(name);
+					}else{
+						this.#sayWithoutName();
+					}
+				}
+
+				#sayWithoutName(){
+					console.info("Hello");
+				}
+
+				#sayWithName(name){
+					console.info(`Hello ${name}`);
+				}
+			}
+
+			const elva = new Person();
+			elva.say("Fatih");
+			elva.say();
+		</script>
+</body>
+</html>

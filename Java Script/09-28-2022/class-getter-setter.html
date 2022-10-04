@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> </title>
+</head>
+<body>
+		<script type="text/javascript">
+			class Person {
+				constructor(firstName, lastName) {
+					this.firstName = firstName;
+					this.lastName = lastName;
+				}
+				get fullName(){
+					return `${this.firstName} ${this.lastName}`;
+				}
+
+				set fullName(value){
+					const result = value.split(" ");
+					this.firstName = result[0];
+					this.lastName = result[1];
+				}
+
+			}
+
+			const elva = new Person("Elva", "Nazlita");
+			console.info(elva);
+			console.info(elva.fullName);
+
+			elva.fullName = "Muhammad Fatih";
+			console.info(elva);
+		</script>
+</body>
+</html>

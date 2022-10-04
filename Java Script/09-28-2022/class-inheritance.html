@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+		<script type="text/javascript">
+			class Employee {
+				sayHello(name) {
+					console.info(`Hello ${name}, my name is employee ${this.name}`);
+				}
+			}
+
+			class Manager {
+				sayHello(name) {
+					console.info(`Hello ${name}, my name is manager ${this.name}`);
+				}
+			}
+
+			const fatih = new Employee();
+			fatih.name = "Fatih";
+			fatih.sayHello("Fadly");
+			console.info(fatih);
+
+			const elva = new Manager();
+			elva.name = "Elva";
+			elva.sayHello("Fadly");
+			console.info(elva);
+
+
+		</script>
+</body>
+</html>

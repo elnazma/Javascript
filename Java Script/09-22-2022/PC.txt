@@ -1,0 +1,15 @@
+processor	: core, thread
+		  - Generasi
+			- INTEL
+			- AMD
+			- M1 2022 > M2 2022
+			- Snapdragon
+
+RAM / Memory	: - Bentuk (Long & Short) Dimm
+		  - Generasi (DDR3, DDR4)
+		  - Kapasitas (2GB, 4GB, 8GB, 16GB, 32GB,, 64GB, 128GB)
+
+Storage / Disk	: 1.000 Byte = 1KB
+		  1.000 KB   = 1MB
+		  1.000 MB   = 1GB
+		  1.000 GB   = 1TB

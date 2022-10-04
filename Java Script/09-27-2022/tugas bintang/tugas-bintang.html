@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tugas Bintang</title>
+</head>
+<body>
+		<script type="text/javascript">
+			function kotak(panjang) {
+    			let hasil = '';
+    			for (let i = 0; i < panjang; i++) { //baris
+        		for (let j = 0; j < panjang; j++) { //kolom
+            	hasil += '* ';
+        	}
+        		hasil += '<br>';
+   			}
+    			return hasil;
+			}
+			document.writeln(kotak(10));
+			document.writeln('<br>');
+
+			function segitiga1(panjang) {
+    			let hasil = '';
+    			for (let i = 0; i <=9; i++) {
+        		for (let j = 0; j <= i; j++) {
+            	hasil += `${i}`;
+       		}
+        	hasil += '<br>';
+    		}
+    		return hasil;
+			}
+			document.writeln(segitiga1(10));
+			document.writeln('<br>');
+
+			function segitiga2(panjang) {
+    			let hasil = '';
+    			for (let i = 0; i < panjang; i++) {
+        		for (let j = 9; j >= i; j--) {
+            	hasil += `${i}`;
+       		}
+        	hasil += '<br>';
+    		}
+    		return hasil;
+			}
+			document.writeln(segitiga2(10));
+			document.writeln('<br>');
+
+
+
+			// function segitiga3(panjang) {
+   //  			let hasil = '';
+   //  			for (let i = 1; i >=10; i++) {
+   //      		for (let j = 1; j <= i; j--) {
+   //          	hasil += `${i}`;
+   //     		}
+   //      	hasil += '<br>';
+   //  		}
+   //  		return hasil;
+			// }
+			// document.writeln(segitiga3(10));
+			// document.writeln('<br>');
+
+			function segitiga4(panjang) {
+    			let hasil = '';
+    			for (let i = 0; i < panjang; i++) {
+        		for (let j = 9; j >= i; j--) {
+            	hasil += `${i}`;
+       		}
+        	hasil += '<br>';
+    		}
+    		return hasil;
+			}
+			document.writeln(segitiga4(10));
+			document.writeln('<br>');
+		</script>
+</body>
+</html>

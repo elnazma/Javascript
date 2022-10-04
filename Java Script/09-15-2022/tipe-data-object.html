@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Tipe Data Object</title>
+</head>
+<body>
+		<script type="text/javascript">
+			// const orang = {};
+
+			// //Menambah atau mengubah
+			// orang["Nama"] = "Elva Nazlita Maulydia";
+			// orang["Alamat"] = "Pati";
+			// orang["umur"] = 18;
+
+			// console.table(orang);
+
+			const orang = {
+				Nama: "Elva Nazlita Maulydia",
+				Hp : "089xxxxxxxx",
+				Alamat: "Pati",
+				Umur: 18
+			};
+
+			let person = {}
+			person["nama"] = "Elva Nazlita Maulydia";
+			person["alamat"] = "Pati";
+			person["umur"] = 18;
+
+			console.info(`Nama : ${orang["Nama"]}`);
+			console.info(`No Telp : ${orang["Hp"]}`);
+			console.info(`Alamat : ${orang.Alamat}`);
+			console.info(`Nama : ${orang.Umur}`);
+
+			console.table(orang);
+
+			delete orang["Umur"];
+
+			console.table(orang);
+		</script>
+</body>
+</html>

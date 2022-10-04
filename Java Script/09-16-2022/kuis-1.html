@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> </title>
+</head>
+<body>
+		<script type="text/javascript">
+			
+			let nama = prompt('Masukkan nama');
+			let nilai = prompt('Masukkan nilai');
+
+			if (isNan(nilai)) {
+				alert(`Hi ${nama}, Tolong masukkan nilai yang benar`);
+			} else if (nilai > 80) {
+				document.writeln(`<p>Hi ${nama}, nilaimu ${nilai} jadi Good Job : A</p>`);
+			} else if (nilai > 70) {
+				document.writeln(`<p>Hi ${nama}, nilaimu ${nilai} jadi Good Job : B</p>`);
+			} else if (nilai > 60) {
+				document.writeln(`<p>Hi ${nama}, nilaimu ${nilai} jadi Good Job : C</p>`);
+			} else {
+				document.writeln(`<p>Hi ${nama}, nilaimu ${nilai} jadi : Try Again Next Year</p>`);
+			}
+
+			//cara kedua
+
+			// if (isNan(nilai)) {
+			// 	alert(`Hi ${nama}, Tolong masukkan nilai yang benar`);
+			// } else {
+			// 	if (nilai > 80) {
+			// 	document.writeln(`<p>Hi ${nama}, nilaimu ${nilai} jadi Good Job : A</p>`);
+			// } else if (nilai > 70) {
+			// 	document.writeln(`<p>Hi ${nama}, nilaimu ${nilai} jadi Good Job : B</p>`);
+			// } else if (nilai > 60) {
+			// 	document.writeln(`<p>Hi ${nama}, nilaimu ${nilai} jadi Good Job : C</p>`);
+			// } else {
+			// 	document.writeln(`<p>Hi ${nama}, nilaimu ${nilai} jadi : Try Again Next Year</p>`);
+			// }
+		</script>
+</body>
+</html>

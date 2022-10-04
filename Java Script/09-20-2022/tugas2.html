@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<!-- <input type="number" id="nilai_angka" placeholder="masukkan nilai angka">
+	<button onclick="buat_predikat()">PROSES</button>
+	<input type="text" id="nilai_huruf"> -->
+
+	<script type="text/javascript">
+		function convNilai(nilai){
+			// var nilai_angka = "90";
+
+		if (nilai >= 90){
+			return "A";
+		} else if (nilai >= 80 || nilai_angka <= 90){
+			return "B";
+		
+		} else if (nilai >= 70 || nilai_angka <= 80){
+			return "C";
+		
+		} else if (nilai >= 60 || nilai_angka <= 70){
+			return "D";
+		
+		} else { 
+			return "E";
+		}
+
+		}
+
+		let inpNilai = prompt("masukkan nilai");
+		let hasil = convNilai(inpNilai);
+		document.writeln(`Nilaimu adalah ${hasil}`);
+	</script>
+</body>
+</html>

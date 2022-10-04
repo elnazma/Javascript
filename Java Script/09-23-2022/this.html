@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+		<script type="text/javascript">
+			// console.info(this);
+
+			// function sample(){
+			// 	console.info(this);
+
+			// 	function inner(){
+			// 		console.info(this);
+			// 	}
+
+			// 	inner();
+			// }
+
+			// sample();
+
+
+			const person = {
+				name: "Fatih",
+				sayHello: function (value){
+					console.info(this);
+					console.info(`Hello ${value} My Name is ${this.name}`);
+				}
+			};
+
+			person.sayHello("Elva");
+			person.sayHello("Nazlita");
+		</script>
+</body>
+</html>

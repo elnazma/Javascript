@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ANONYMOUS FUNCTION</title>
+</head>
+<body>
+		<script type="text/javascript">
+			//Anonymous Function
+				//tidak bisa berdiri sendiri dan butuh bantuan variable
+
+				let say = function(name){
+					document.writeln(`<p>Hello ${name}</p>`);
+				}
+
+				say("Elva");
+				say("Nazlita");
+
+				//--------------
+				function giveMeName(callback){
+					callback("Elva");
+				}
+				giveMeName(say);
+
+				giveMeName(function(name){document.writeln(`<p>Hi ${name}</p>`);});
+		</script>
+</body>
+</html>

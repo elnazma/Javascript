@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		// Object dibagi menjadi 2, freeze and seal
+
+		{
+			const person = {
+				firstName: "Elva",
+				lastName: "Maulydia"
+			};
+
+			// Object.freeze(person);
+			Object.seal(person);
+
+			person.firstName = "Nazlita";
+			person.middleName = "Elva";
+			delete person.lastName;
+
+			console.info(person);
+		}
+
+
+		// Object assign
+
+		{
+			const target = {
+				firstName: "Elva"
+			};
+			const source = {
+				lastName: "Maulydia"
+			};
+
+			Object.assign(target, source);
+			console.info(target);
+			console.info(source);
+		}
+
+		// Object property name and value
+
+		{
+			const person = {
+				firstName: "Elva",
+				lastName: "Maulydia",
+				alias: "Hamba"
+			};
+
+			console.info(Object.values(person));
+			console.info(Object.getOwnPropertyNames(person));
+		}
+	</script>
+</body>
+</html>

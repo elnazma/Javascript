@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PROTOTYPE</title>
+</head>
+<body>
+		<script type="text/javascript">
+			function Person(firstName, lastName) {
+				this.firstName = firstName;
+				this.lastName = lastName;
+				this.sayHello = function (name) {
+					console.info(`Hello ${name}, my name is ${this.firstName}`);
+				}
+
+			}
+
+			Person.prototype.sayBye = function (){
+				console.info("Good Bye");
+			}
+
+			Person.prototype.run = function (){
+				console.info(`${this.firstName} is running`);
+			}
+
+			const elva = new Person("Elva", "Nazlita");
+			const fadly = new Person("Fadly", "Fatih");
+
+			console.log(elva);
+			console.log(fadly);
+
+			elva.sayBye();
+			fadly.run();
+		</script>
+</body>
+</html>

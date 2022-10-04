@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+		const person = {
+			firstName: "Elva",
+			middleName: "Nazlita",
+			lastName: "Maulydia",
+			addres: {
+				country: "Indonesia",
+				city: "Pati"
+			},
+
+			hobbies: [
+				"Coding", "Reading", "Writing"
+			]
+		};
+
+		const json = JSON.stringify(person);
+		console.info(json);
+
+		const jsonObject = JSON.parse(json);
+		console.info(jsonObject);
+
+	</script>
+</body>
+</html>

@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+		<script type="text/javascript">
+			function kotak(panjang) {
+		    let hasil = '';
+		    for (let i = 0; i < panjang; i++) {
+		        for (let j = 0; j < panjang; j++) {
+		            hasil += '* ';
+		        }
+		        hasil += '\n';
+		    }
+		    return hasil;
+			}
+			console.log(kotak(10));
+
+			// function segitiga()
+			let a = '';
+			for(let i = 0; i <= 9; i++){
+    		for(let j = 0; j < i; j++)
+        	a += i;
+    		console.log(a);
+   			a = '';
+			}
+		</script>
+</body>
+</html>

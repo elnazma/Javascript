@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		// set mirip seperti Array, hanya saja datanya bersifat unik
+
+		const set = new Set();
+
+		set.add("Elva");
+		set.add("Elva");
+		set.add("Nazlita");
+		set.add("Maulydia");
+
+		console.info(set.size);
+		console.info(set);
+
+		set.forEach((value) => console.info(value));
+
+		console.info(set.has("Elva"));
+		set.delete("Elva");
+		console.info(set);
+		console.info(set.size);
+
+	</script>
+</body>
+</html>
