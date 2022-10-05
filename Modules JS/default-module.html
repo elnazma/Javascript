@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Default Module</title>
+</head>
+<body>
+    <script type="module">
+        import {default as namaDefault} from "./scripts/default-variable.js";
+        console.info(namaDefault);
+
+        import {default as Person} from "./scripts/default-class.js";
+        const person = new Person("Elva");
+        person.sayHi();
+
+        import {default as sayHelloDefault} from "./scripts/default-function.js";
+        sayHelloDefault("Abil");
+
+        import {default as authorName, content, tittle} from "./scripts/default-and-named.js";
+        console.info(authorName);
+        console.info(content);
+        console.info(tittle);
+
+    </script>
+</body>
+</html>
