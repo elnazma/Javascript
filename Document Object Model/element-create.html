@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Create Element</title>
+</head>
+<body>
+		<div id="content" class="content">
+			
+		</div>
+
+		<script type="text/javascript">
+			const content  = document.getElementById("content");
+
+			// create h1
+
+			const title = document.createElement("h1");
+			title.textContent = "Belajar Javascript DOM";
+			content.appendChild(title);
+
+			const description = document.createElement("p");
+			description.textContent = "Belajar Javascript DOM";
+			content.appendChild(description);
+		</script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Event Target</title>
+</head>
+<body>
+	<input type="button" id="clickMe" value="Click Me!">
+	<img id="gambar">
+
+	<script type="text/javascript">
+		const button = document.getElementById("clickMe");
+		button.addEventListener("click", function() {
+			button.setAttribute("value", "You Already Click Me");
+			alert('Done!');
+		});
+
+		button.addEventListener("click", function() {
+			console.info('Button di Click');
+			document.getElementById("gambar").setAttribute("src", "h1.jpg");
+		});
+
+	</script>
+</body>
+</html>

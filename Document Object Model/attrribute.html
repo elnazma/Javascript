@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Attribute</title>
+</head>
+<body>
+	<img id="logo" src="h1.jpg" alt="Heesung Enhypen">
+
+	<script type="text/javascript">
+		const logo = document.getElementById("logo");
+
+		const src = logo.getAttribute("src");
+		console.info(src);
+
+		console.info(logo.getAttribute("alt"));
+
+		console.info(document.getElementById("logo").getAttribute("src"));
+	</script>
+</body>
+</html>

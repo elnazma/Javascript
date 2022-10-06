@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Node List</title>
+</head>
+<body>
+		<ul id="menu1">
+			<li id="first">First</li>
+			<li id="second">Second</li>
+			<li id="third">Third</li>
+		</ul>
+
+		<ul id="menu2">
+			<li>Elva</li>
+			<li>Nazlita</li>
+			<li>Maulydia</li>
+		</ul>
+
+		<script type="text/javascript">
+			let list = document.querySelectorAll("li");
+
+			const menu1 = document.getElementById("menu1");
+			menu1.appendChild(document.createElement("li"));
+			menu1.appendChild(document.createElement("li"));
+
+			console.info(list);
+			
+			list = document.querySelectorAll("li");
+			console.info(list);
+		</script>
+</body>
+</html>

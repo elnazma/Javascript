@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<input type="button" id="clickME" value="Click Me!">
+	<script type="text/javascript">
+		const button = document.getElementById("clickME");
+
+		button.onclick = function () {
+			button.setAttribute("value", "You Already Click Me!");
+			console.log('Button di click');
+		}
+	</script>
+</body>
+</html>
