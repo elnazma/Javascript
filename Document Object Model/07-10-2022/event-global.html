@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Event Global</title>
+</head>
+<body>
+	<input type="button" id="clickMe" value="Click Me">
+	<input type="text" id="clickMe" value="Coba Ubah">
+	<h3 id="targetku">Ini Belum ada perubahan</h3>
+
+	<script type="text/javascript">
+		const button = document.getElementById(clickMe);
+
+		// button.onclick = function (){
+		// 	button.setAttribute("value", "You Already Click Me!");
+		// 	console.log('Button di Click');
+		// };
+
+		// Yang dijalankan click yang terakhir saja
+		// button.onclick = function (){
+		// 	console.log('OK');
+		// };
+
+		// button.onchange = function (){
+		// 	button.getElementById("targetku").textContent = button.value;
+		// };
+
+		button.onkeyup = function (){
+			document.getElementById("targetku").textContent = button.value;
+		};
+	</script>
+</body>
+</html>

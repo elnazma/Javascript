@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>ID Selector</title>
+</head>
+<body>
+	<ul>
+		<li class="menuItem">First</li>
+		<li id="menu2">Second</li>
+		<li class="menuItem">Third</li>
+<!-- 		<li id="menu2">Third</li>
+ -->	</ul>
+
+	<script type="text/javascript">
+		const menuItems = document.querySelectorAll("#menu2");
+		console.info(menuItems);
+
+		// console.info(document.getElementById('menu2'));
+	</script>
+</body>
+</html>

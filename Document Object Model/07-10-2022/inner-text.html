@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Inner Text</title>
+</head>
+<body>
+	<p id="content">
+		<script type="text/javascript">
+			console.info("Hello World");
+		</script>
+
+		<b>Elva</b> Nazlita <i>Maulydia</i>
+	</p>
+
+	<script type="text/javascript">
+		const content = document.getElementById("content");
+		console.info(content.textContent);
+		console.info(content.innerText);
+		console.info(content.innerHTML);
+	</script>
+</body>
+</html>

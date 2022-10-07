@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Style</title>
+</head>
+<body>
+	<input type="button" value="skyblue">
+	<input type="button" value="pink">
+	<input type="button" value="purple">
+	<div id="canvas" style="width: 500px; height: 500px; background-color: black;"></div>
+
+	<script type="text/javascript">
+		const target	= document.getElementById("canvas");
+		const buttons	= document.querySelectorAll("input");
+
+		for (let button of buttons) {
+			button.onclick = function (){
+				target.style.backgroundColor = button.getAttribute("value");
+			};
+		}
+
+		// buttons[0].onclick = function (){
+		// 	target.style.backgroundColor = buttons[0].getAttribute("value");
+		// };
+
+		// buttons[1].onclick = function (){
+		// 	target.style.backgroundColor = buttons[1].getAttribute("value");
+		// };
+
+		// buttons[2].onclick = function (){
+		// 	target.style.backgroundColor = buttons[2].getAttribute("value");
+		// };
+	</script>
+</body>
+</html>
