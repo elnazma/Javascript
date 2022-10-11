@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>AJAX</title>
+</head>
+<body>
+	<h1 id="putHere"></h1>
+	<script type="text/javascript">
+		const ajax = new XMLHttpRequest();
+		ajax.open("GET", "api/hello.json");
+
+		ajax.addEventListener("load", function (){
+			const json = JSON.parse(ajax.responseText);
+
+			const header = document.getElementById("putHere");
+			header.textContent = json.response;
+		});
+
+		ajax.send();
+	</script>
+</body>
+</html>
