@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<form>
+		<label for="username">Username:
+			<input type="text" id="username" name="username">
+		</label>
+		<br>
+		<label for="password">Password:
+			<input type="password" id="password" name="password">
+		</label>
+			<input type="button" id="login" value="login">
+	</form>
+	<h1 id="putHere"></h1>
+	<script type="text/javascript">
+		function doLogin(){
+			const ajax = new XMLHttpRequest();
+			ajax.open("POST", "https://webhook.site/80af28d1-da6d-4af6-9fc4-66c9e89f9eb9");
+			ajax.onload = function () {
+				const response = document.getElementById("putHere");
+				response.innerText = ajax.responseText;
+			}
+			ajax.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+			const form = new URLSearchParams();
+				form.append("username", document.getElementById("username").value);
+				form.append("password", document.getElementById("password").value);
+			
+			ajax.send(form);
+		}
+		document.getElementById("login").onclick = doLogin;
+	</script>
+</body>
+</html>
