@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<table border="1" cellpadding="9" cellspacing="0">
+		<tbody>
+			<tr>
+				<th>Attribute</th>
+				<th>Value Product 1</th>
+				<th>Value Product 2</th>
+				<th>Value Product 3</th>
+			</tr>
+			<tr>
+				<td>Id :</td>
+				<td id="id1"></td>
+				<td id="id2"></td>
+				<td id="id3"></td>
+			</tr>
+			<tr>
+				<td>Name :</td>
+				<td id="name1"></td>
+				<td id="name2"></td>
+				<td id="name3"></td>
+			</tr>
+			<tr>
+				<td>Price :</td>
+				<td id="price1"></td>
+				<td id="price2"></td>
+				<td id="price3"></td>
+			</tr>
+		</tbody>
+	</table>
+	<script type="text/javascript">
+		
+		function getProduct(product) {
+			return new Promise(function (resolve, reject) {
+
+			const ajax = new XMLHttpRequest();
+			ajax.open("GET", `api/${product}.json`);
+			ajax.onload = function () {
+				if (ajax.status === 200) {
+					resolve(ajax.responseText);
+				}else{
+					reject(`Error Get Product with response : ${ajax.status}`);
+				}
+			};
+			ajax.send();
+			});
+		}
+
+		const promise = Promise.all([
+			getProduct("product1"),
+			getProduct("product2"),
+			getProduct("product3")
+		]);
+
+		promise.then(function (products) {
+			document.getElementById("id1").textContent		= JSON.parse(products[0]).id;
+			document.getElementById("name1").textContent	= JSON.parse(products[0]).name;
+			document.getElementById("price1").textContent	= JSON.parse(products[0]).price;
+		})
+		promise.then(function (products) {
+			document.getElementById("id2").textContent		= JSON.parse(products[0]).id;
+			document.getElementById("name2").textContent	= JSON.parse(products[0]).name;
+			document.getElementById("price2").textContent	= JSON.parse(products[0]).price;
+		})
+		promise.then(function (products) {
+			document.getElementById("id3").textContent		= JSON.parse(products[0]).id;
+			document.getElementById("name3").textContent	= JSON.parse(products[0]).name;
+			document.getElementById("price3").textContent	= JSON.parse(products[0]).price;
+		})
+		.catch(function (error) {
+			console.info(errors);
+		})
+	</script>
+</body>			
+</html>
