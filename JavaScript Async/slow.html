@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<button id="button">Click</button>
+	<script type="text/javascript">
+		function slowLog(total) {
+			for (let i = 0; i < total; i++) {
+				console.info(i);
+			}
+		}
+
+		document.getElementById("button").onclick = function () {
+			console.info("Start");
+			slowLog(10000);
+			console.info("End");
+		}
+	</script>
+</body>
+</html>

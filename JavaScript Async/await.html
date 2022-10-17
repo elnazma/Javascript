@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		function getProduct() {
+			const request = new Request("api/product.json", {
+				method: "GET"
+			});
+
+			const response = fetch(request);
+
+			return response.then((response) => response.json());
+		}
+
+		function getProductNamePromise() {
+			return new Promise(function (resolve, reject) {
+				getProduct()
+					.then((product) => resolve(product.id))
+					.catch((error) => resolve("Product Not Found"));
+			})
+		}
+
+		async function getProductNameAsync() {
+			try {
+				const product = await getProduct();
+				return product.name;
+			} catch (e) {
+				return "Product Not Found";
+			} finally { }
+		}
+
+		getProductNamePromise()
+			.then((productName) => console.info(productName));
+		getProductNameAsync()
+			.then((productName) => console.info(productName));
+
+		
+	</script>
+</body>
+</html>

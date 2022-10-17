@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<script type="text/javascript">
+		
+		function getNamePromise(){
+			return new Promise(function (resolve, reject) {
+				resolve("Elva Nazlita");
+			});
+		}
+
+		async function getNameAsync(){
+			return "Elva Maulydia";
+		}
+
+		getNamePromise()
+			.then((name) => console.info(name));
+
+		getNameAsync()
+			.then((name) => console.info(name));
+
+			getNameAsync()
+			.then(
+				function (name) {
+					console.info(name);
+				}
+			);
+
+	</script>
+</body>
+</html>
