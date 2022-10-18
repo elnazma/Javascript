@@ -1,6 +1,6 @@
 var http = require('http');
 http.createServer(function(req, res) {
-    res.writeHead(404, { 'Content-Type' : 'text/html' });
+    res.writeHead(200, { 'Content-Type' : 'text/html' });
     res.write(
         'Kita <h1>Belajar</h1>! <p>NodeJS</p> <b>Ya teman-teman</b>'
     );
