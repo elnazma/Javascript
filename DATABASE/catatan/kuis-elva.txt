@@ -1,0 +1,584 @@
+MariaDB [belajar_db]> create database siswa;
+Query OK, 1 row affected (0.003 sec)
+
+MariaDB [belajar_db]> use siswa;
+Database changed
+MariaDB [siswa]> create table siswa(
+    -> id varchar(10) NOT NULL,
+    -> primary key (id),
+    -> nisn varchar(10),
+    -> username varchar(50),
+    -> id_spp int(11),
+    -> kelas varchar(10),
+    -> kompetensi_keahlian varchar(100),
+    -> biaya_spp int(11),
+    -> unique key nisn_unique (nisn),
+    -> unique key username_unique (username),
+    -> unique key id_spp_unique (id_spp));
+Query OK, 0 rows affected (0.051 sec)
+
+MariaDB [siswa]> desc siswa;
++---------------------+--------------+------+-----+---------+-------+
+| Field               | Type         | Null | Key | Default | Extra |
++---------------------+--------------+------+-----+---------+-------+
+| id                  | varchar(10)  | NO   | PRI | NULL    |       |
+| nisn                | varchar(10)  | YES  | UNI | NULL    |       |
+| username            | varchar(50)  | YES  | UNI | NULL    |       |
+| id_spp              | int(11)      | YES  | UNI | NULL    |       |
+| kelas               | varchar(10)  | YES  |     | NULL    |       |
+| kompetensi_keahlian | varchar(100) | YES  |     | NULL    |       |
+| biaya_spp           | int(11)      | YES  |     | NULL    |       |
++---------------------+--------------+------+-----+---------+-------+
+7 rows in set (0.021 sec)
+
+---------------------------------------------------------- DIRUBAH MANUAL LEWAT localhost/phpmyadmin ---------------------------------------------------------------
+
+MariaDB [siswa]> desc siswa;
++---------------------+--------------+------+-----+---------+----------------+
+| Field               | Type         | Null | Key | Default | Extra          |
++---------------------+--------------+------+-----+---------+----------------+
+| id                  | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nisn                | varchar(10)  | YES  | UNI | NULL    |                |
+| username            | varchar(50)  | YES  | UNI | NULL    |                |
+| id_spp              | varchar(10)  | YES  | UNI | NULL    |                |
+| kelas               | varchar(10)  | YES  |     | NULL    |                |
+| kompetensi_keahlian | varchar(100) | YES  |     | NULL    |                |
+| biaya_spp           | int(11)      | YES  |     | NULL    |                |
++---------------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.007 sec)
+
+MariaDB [siswa]> insert into siswa(nisn, username, id_spp, kelas, kompetensi_keahlian, biaya_spp)
+    -> values ('100011', 'elva123', 'A1', 'X', 'RPL', 250000),
+    -> ('100022', 'anggi123', 'B1', 'X', 'TKJ', 250000),
+    -> ('100033', 'hikmah123', 'C1', 'X', 'TB', 250000),
+    -> ('200011', 'nova123', 'A2', 'XI', 'RPL', 300000),
+    -> ('200022', 'nita123', 'B2', 'XI', 'TKJ', 300000),
+    -> ('200033', 'tiara123', 'C2', 'XI', 'TB', 300000),
+    -> ('300011', 'shofi123', 'A3', 'XII', 'RPL', 350000),
+    -> ('300022', 'maya123', 'B3', 'XII', 'TKJ', 350000),
+    -> ('300033', 'ulya123', 'C3', 'XII', 'TB', 350000);
+Query OK, 9 rows affected (0.014 sec)
+Records: 9  Duplicates: 0  Warnings: 0
+
+MariaDB [siswa]> select * from siswa;
++----+--------+-----------+--------+-------+---------------------+-----------+
+| id | nisn   | username  | id_spp | kelas | kompetensi_keahlian | biaya_spp |
++----+--------+-----------+--------+-------+---------------------+-----------+
+|  1 | 100011 | elva123   | A1     | X     | RPL                 |    250000 |
+|  2 | 100022 | anggi123  | B1     | X     | TKJ                 |    250000 |
+|  3 | 100033 | hikmah123 | C1     | X     | TB                  |    250000 |
+|  4 | 200011 | nova123   | A2     | XI    | RPL                 |    300000 |
+|  5 | 200022 | nita123   | B2     | XI    | TKJ                 |    300000 |
+|  6 | 200033 | tiara123  | C2     | XI    | TB                  |    300000 |
+|  7 | 300011 | shofi123  | A3     | XII   | RPL                 |    350000 |
+|  8 | 300022 | maya123   | B3     | XII   | TKJ                 |    350000 |
+|  9 | 300033 | ulya123   | C3     | XII   | TB                  |    350000 |
++----+--------+-----------+--------+-------+---------------------+-----------+
+9 rows in set (0.001 sec)
+
+MariaDB [siswa]> select count(id) as 'jumlah_siswa' from siswa;
++--------------+
+| jumlah_siswa |
++--------------+
+|            9 |
++--------------+
+1 row in set (0.001 sec)
+
+MariaDB [siswa]> select count(id) as 'jumlah siswa' from siswa;
++--------------+
+| jumlah siswa |
++--------------+
+|            9 |
++--------------+
+1 row in set (0.001 sec)
+
+MariaDB [siswa]> select avg(biaya_spp) as 'Rata - rata spp' from siswa;
++-----------------+
+| Rata - rata spp |
++-----------------+
+|     300000.0000 |
++-----------------+
+1 row in set (0.011 sec)
+
+MariaDB [siswa]> select avg(id) as 'Rata - rata spp' from siswa;
++-----------------+
+| Rata - rata spp |
++-----------------+
+|          5.0000 |
++-----------------+
+1 row in set (0.001 sec)
+
+MariaDB [siswa]> select max(biaya_spp) as 'SPP Termahal' from siswa;
++--------------+
+| SPP Termahal |
++--------------+
+|       350000 |
++--------------+
+1 row in set (0.001 sec)
+
+MariaDB [siswa]> select min(biaya_spp) as 'SPP Termurah' from siswa;
++--------------+
+| SPP Termurah |
++--------------+
+|       250000 |
++--------------+
+1 row in set (0.001 sec)
+
+MariaDB [siswa]> select sum(biaya_spp) as 'Total SPP' from siswa;
++-----------+
+| Total SPP |
++-----------+
+|   2700000 |
++-----------+
+1 row in set (0.001 sec)
+
+MariaDB [siswa]> select kelas, biaya_spp,
+    -> if(biaya_spp <= 250000, 'Junior',
+    -> if(biaya_spp <= 300000, 'Middle', 'Senior')) as 'Level'
+    -> from siswa;
++-------+-----------+--------+
+| kelas | biaya_spp | Level  |
++-------+-----------+--------+
+| X     |    250000 | Junior |
+| X     |    250000 | Junior |
+| X     |    250000 | Junior |
+| XI    |    300000 | Middle |
+| XI    |    300000 | Middle |
+| XI    |    300000 | Middle |
+| XII   |    350000 | Senior |
+| XII   |    350000 | Senior |
+| XII   |    350000 | Senior |
++-------+-----------+--------+
+9 rows in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa where id = 1;
++----+--------+----------+--------+-------+---------------------+-----------+
+| id | nisn   | username | id_spp | kelas | kompetensi_keahlian | biaya_spp |
++----+--------+----------+--------+-------+---------------------+-----------+
+|  1 | 100011 | elva123  | A1     | X     | RPL                 |    250000 |
++----+--------+----------+--------+-------+---------------------+-----------+
+1 row in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa where nisn = '200011';
++----+--------+----------+--------+-------+---------------------+-----------+
+| id | nisn   | username | id_spp | kelas | kompetensi_keahlian | biaya_spp |
++----+--------+----------+--------+-------+---------------------+-----------+
+|  4 | 200011 | nova123  | A2     | XI    | RPL                 |    300000 |
++----+--------+----------+--------+-------+---------------------+-----------+
+1 row in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa where username = 'ulya123';
++----+--------+----------+--------+-------+---------------------+-----------+
+| id | nisn   | username | id_spp | kelas | kompetensi_keahlian | biaya_spp |
++----+--------+----------+--------+-------+---------------------+-----------+
+|  9 | 300033 | ulya123  | C3     | XII   | TB                  |    350000 |
++----+--------+----------+--------+-------+---------------------+-----------+
+1 row in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa where id_spp = 'B1';
++----+--------+----------+--------+-------+---------------------+-----------+
+| id | nisn   | username | id_spp | kelas | kompetensi_keahlian | biaya_spp |
++----+--------+----------+--------+-------+---------------------+-----------+
+|  2 | 100022 | anggi123 | B1     | X     | TKJ                 |    250000 |
++----+--------+----------+--------+-------+---------------------+-----------+
+1 row in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa where kelas = 'XII';
++----+--------+----------+--------+-------+---------------------+-----------+
+| id | nisn   | username | id_spp | kelas | kompetensi_keahlian | biaya_spp |
++----+--------+----------+--------+-------+---------------------+-----------+
+|  7 | 300011 | shofi123 | A3     | XII   | RPL                 |    350000 |
+|  8 | 300022 | maya123  | B3     | XII   | TKJ                 |    350000 |
+|  9 | 300033 | ulya123  | C3     | XII   | TB                  |    350000 |
++----+--------+----------+--------+-------+---------------------+-----------+
+3 rows in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa where kompetensi_keahlian = 'RPL';
++----+--------+----------+--------+-------+---------------------+-----------+
+| id | nisn   | username | id_spp | kelas | kompetensi_keahlian | biaya_spp |
++----+--------+----------+--------+-------+---------------------+-----------+
+|  1 | 100011 | elva123  | A1     | X     | RPL                 |    250000 |
+|  4 | 200011 | nova123  | A2     | XI    | RPL                 |    300000 |
+|  7 | 300011 | shofi123 | A3     | XII   | RPL                 |    350000 |
++----+--------+----------+--------+-------+---------------------+-----------+
+3 rows in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa where biaya_spp > 250000;
++----+--------+----------+--------+-------+---------------------+-----------+
+| id | nisn   | username | id_spp | kelas | kompetensi_keahlian | biaya_spp |
++----+--------+----------+--------+-------+---------------------+-----------+
+|  4 | 200011 | nova123  | A2     | XI    | RPL                 |    300000 |
+|  5 | 200022 | nita123  | B2     | XI    | TKJ                 |    300000 |
+|  6 | 200033 | tiara123 | C2     | XI    | TB                  |    300000 |
+|  7 | 300011 | shofi123 | A3     | XII   | RPL                 |    350000 |
+|  8 | 300022 | maya123  | B3     | XII   | TKJ                 |    350000 |
+|  9 | 300033 | ulya123  | C3     | XII   | TB                  |    350000 |
++----+--------+----------+--------+-------+---------------------+-----------+
+6 rows in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa where username = 'elva123';
++----+--------+----------+--------+-------+---------------------+-----------+
+| id | nisn   | username | id_spp | kelas | kompetensi_keahlian | biaya_spp |
++----+--------+----------+--------+-------+---------------------+-----------+
+|  1 | 100011 | elva123  | A1     | X     | RPL                 |    250000 |
++----+--------+----------+--------+-------+---------------------+-----------+
+1 row in set (0.002 sec)
+
+MariaDB [siswa]> desc siswa;
++---------------------+--------------+------+-----+---------+----------------+
+| Field               | Type         | Null | Key | Default | Extra          |
++---------------------+--------------+------+-----+---------+----------------+
+| id                  | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nisn                | varchar(10)  | YES  | UNI | NULL    |                |
+| username            | varchar(50)  | YES  | UNI | NULL    |                |
+| id_spp              | varchar(10)  | YES  | UNI | NULL    |                |
+| kelas               | varchar(10)  | YES  |     | NULL    |                |
+| kompetensi_keahlian | varchar(100) | YES  |     | NULL    |                |
+| biaya_spp           | int(11)      | YES  |     | NULL    |                |
++---------------------+--------------+------+-----+---------+----------------+
+7 rows in set (0.046 sec)
+
+MariaDB [siswa]> ALTER TABLE siswa ADD COLUMN level ENUM('Junior', 'Middle', 'Senior') AFTER kelas;
+Query OK, 0 rows affected (0.050 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [siswa]> desc siswa;
++---------------------+----------------------------------+------+-----+---------+----------------+
+| Field               | Type                             | Null | Key | Default | Extra          |
++---------------------+----------------------------------+------+-----+---------+----------------+
+| id                  | int(11)                          | NO   | PRI | NULL    | auto_increment |
+| nisn                | varchar(10)                      | YES  | UNI | NULL    |                |
+| username            | varchar(50)                      | YES  | UNI | NULL    |                |
+| id_spp              | varchar(10)                      | YES  | UNI | NULL    |                |
+| kelas               | varchar(10)                      | YES  |     | NULL    |                |
+| level               | enum('Junior','Middle','Senior') | YES  |     | NULL    |                |
+| kompetensi_keahlian | varchar(100)                     | YES  |     | NULL    |                |
+| biaya_spp           | int(11)                          | YES  |     | NULL    |                |
++---------------------+----------------------------------+------+-----+---------+----------------+
+8 rows in set (0.045 sec)
+
+MariaDB [siswa]> select * from siswa;
++----+--------+-----------+--------+-------+-------+---------------------+-----------+
+| id | nisn   | username  | id_spp | kelas | level | kompetensi_keahlian | biaya_spp |
++----+--------+-----------+--------+-------+-------+---------------------+-----------+
+|  1 | 100011 | elva123   | A1     | X     | NULL  | RPL                 |    250000 |
+|  2 | 100022 | anggi123  | B1     | X     | NULL  | TKJ                 |    250000 |
+|  3 | 100033 | hikmah123 | C1     | X     | NULL  | TB                  |    250000 |
+|  4 | 200011 | nova123   | A2     | XI    | NULL  | RPL                 |    300000 |
+|  5 | 200022 | nita123   | B2     | XI    | NULL  | TKJ                 |    300000 |
+|  6 | 200033 | tiara123  | C2     | XI    | NULL  | TB                  |    300000 |
+|  7 | 300011 | shofi123  | A3     | XII   | NULL  | RPL                 |    350000 |
+|  8 | 300022 | maya123   | B3     | XII   | NULL  | TKJ                 |    350000 |
+|  9 | 300033 | ulya123   | C3     | XII   | NULL  | TB                  |    350000 |
++----+--------+-----------+--------+-------+-------+---------------------+-----------+
+9 rows in set (0.001 sec)
+
+MariaDB [siswa]> UPDATE siswa SET level = 'Junior' WHERE username='elva123';
+Query OK, 1 row affected (0.041 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [siswa]> UPDATE siswa SET level = 'Junior' WHERE username='anggi123';
+Query OK, 1 row affected (0.039 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [siswa]> UPDATE siswa SET level = 'Junior' WHERE username='hikmah123';
+Query OK, 1 row affected (0.041 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [siswa]> UPDATE siswa SET level = 'Middle' WHERE username='nova123';
+Query OK, 1 row affected (0.005 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [siswa]> UPDATE siswa SET level = 'Middle' WHERE username='nita123';
+Query OK, 1 row affected (0.040 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [siswa]> UPDATE siswa SET level = 'Middle' WHERE username='tiara123';
+Query OK, 1 row affected (0.046 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [siswa]> UPDATE siswa SET level = 'Senior' WHERE username='shofi123';
+Query OK, 1 row affected (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [siswa]> UPDATE siswa SET level = 'Senior' WHERE username='maya123';
+Query OK, 1 row affected (0.040 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [siswa]> UPDATE siswa SET level = 'Senior' WHERE username='ulya123';
+Query OK, 1 row affected (0.054 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [siswa]> select * from siswa;
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+| id | nisn   | username  | id_spp | kelas | level  | kompetensi_keahlian | biaya_spp |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+|  1 | 100011 | elva123   | A1     | X     | Junior | RPL                 |    250000 |
+|  2 | 100022 | anggi123  | B1     | X     | Junior | TKJ                 |    250000 |
+|  3 | 100033 | hikmah123 | C1     | X     | Junior | TB                  |    250000 |
+|  4 | 200011 | nova123   | A2     | XI    | Middle | RPL                 |    300000 |
+|  5 | 200022 | nita123   | B2     | XI    | Middle | TKJ                 |    300000 |
+|  6 | 200033 | tiara123  | C2     | XI    | Middle | TB                  |    300000 |
+|  7 | 300011 | shofi123  | A3     | XII   | Senior | RPL                 |    350000 |
+|  8 | 300022 | maya123   | B3     | XII   | Senior | TKJ                 |    350000 |
+|  9 | 300033 | ulya123   | C3     | XII   | Senior | TB                  |    350000 |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+9 rows in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa where level != 'Junior';
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+| id | nisn   | username | id_spp | kelas | level  | kompetensi_keahlian | biaya_spp |
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+|  4 | 200011 | nova123  | A2     | XI    | Middle | RPL                 |    300000 |
+|  5 | 200022 | nita123  | B2     | XI    | Middle | TKJ                 |    300000 |
+|  6 | 200033 | tiara123 | C2     | XI    | Middle | TB                  |    300000 |
+|  7 | 300011 | shofi123 | A3     | XII   | Senior | RPL                 |    350000 |
+|  8 | 300022 | maya123  | B3     | XII   | Senior | TKJ                 |    350000 |
+|  9 | 300033 | ulya123  | C3     | XII   | Senior | TB                  |    350000 |
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+6 rows in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa where level <> 'Middle';
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+| id | nisn   | username  | id_spp | kelas | level  | kompetensi_keahlian | biaya_spp |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+|  1 | 100011 | elva123   | A1     | X     | Junior | RPL                 |    250000 |
+|  2 | 100022 | anggi123  | B1     | X     | Junior | TKJ                 |    250000 |
+|  3 | 100033 | hikmah123 | C1     | X     | Junior | TB                  |    250000 |
+|  7 | 300011 | shofi123  | A3     | XII   | Senior | RPL                 |    350000 |
+|  8 | 300022 | maya123   | B3     | XII   | Senior | TKJ                 |    350000 |
+|  9 | 300033 | ulya123   | C3     | XII   | Senior | TB                  |    350000 |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+6 rows in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa where biaya_spp < 350000;
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+| id | nisn   | username  | id_spp | kelas | level  | kompetensi_keahlian | biaya_spp |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+|  1 | 100011 | elva123   | A1     | X     | Junior | RPL                 |    250000 |
+|  2 | 100022 | anggi123  | B1     | X     | Junior | TKJ                 |    250000 |
+|  3 | 100033 | hikmah123 | C1     | X     | Junior | TB                  |    250000 |
+|  4 | 200011 | nova123   | A2     | XI    | Middle | RPL                 |    300000 |
+|  5 | 200022 | nita123   | B2     | XI    | Middle | TKJ                 |    300000 |
+|  6 | 200033 | tiara123  | C2     | XI    | Middle | TB                  |    300000 |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+6 rows in set (0.003 sec)
+
+MariaDB [siswa]> select * from siswa where kompetensi_keahlian = 'RPL' OR biaya_spp > 250000;
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+| id | nisn   | username | id_spp | kelas | level  | kompetensi_keahlian | biaya_spp |
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+|  1 | 100011 | elva123  | A1     | X     | Junior | RPL                 |    250000 |
+|  4 | 200011 | nova123  | A2     | XI    | Middle | RPL                 |    300000 |
+|  5 | 200022 | nita123  | B2     | XI    | Middle | TKJ                 |    300000 |
+|  6 | 200033 | tiara123 | C2     | XI    | Middle | TB                  |    300000 |
+|  7 | 300011 | shofi123 | A3     | XII   | Senior | RPL                 |    350000 |
+|  8 | 300022 | maya123  | B3     | XII   | Senior | TKJ                 |    350000 |
+|  9 | 300033 | ulya123  | C3     | XII   | Senior | TB                  |    350000 |
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+7 rows in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa where id > 3  AND kompetensi_keahlian = 'RPL';
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+| id | nisn   | username | id_spp | kelas | level  | kompetensi_keahlian | biaya_spp |
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+|  4 | 200011 | nova123  | A2     | XI    | Middle | RPL                 |    300000 |
+|  7 | 300011 | shofi123 | A3     | XII   | Senior | RPL                 |    350000 |
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+2 rows in set (0.002 sec)
+
+MariaDB [siswa]> select * from siswa WHERE id_spp LIKE '%1%';
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+| id | nisn   | username  | id_spp | kelas | level  | kompetensi_keahlian | biaya_spp |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+|  1 | 100011 | elva123   | A1     | X     | Junior | RPL                 |    250000 |
+|  2 | 100022 | anggi123  | B1     | X     | Junior | TKJ                 |    250000 |
+|  3 | 100033 | hikmah123 | C1     | X     | Junior | TB                  |    250000 |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+3 rows in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa WHERE username LIKE '%i%';
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+| id | nisn   | username  | id_spp | kelas | level  | kompetensi_keahlian | biaya_spp |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+|  2 | 100022 | anggi123  | B1     | X     | Junior | TKJ                 |    250000 |
+|  3 | 100033 | hikmah123 | C1     | X     | Junior | TB                  |    250000 |
+|  5 | 200022 | nita123   | B2     | XI    | Middle | TKJ                 |    300000 |
+|  6 | 200033 | tiara123  | C2     | XI    | Middle | TB                  |    300000 |
+|  7 | 300011 | shofi123  | A3     | XII   | Senior | RPL                 |    350000 |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+5 rows in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa WHERE username LIKE '%a%';
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+| id | nisn   | username  | id_spp | kelas | level  | kompetensi_keahlian | biaya_spp |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+|  1 | 100011 | elva123   | A1     | X     | Junior | RPL                 |    250000 |
+|  2 | 100022 | anggi123  | B1     | X     | Junior | TKJ                 |    250000 |
+|  3 | 100033 | hikmah123 | C1     | X     | Junior | TB                  |    250000 |
+|  4 | 200011 | nova123   | A2     | XI    | Middle | RPL                 |    300000 |
+|  5 | 200022 | nita123   | B2     | XI    | Middle | TKJ                 |    300000 |
+|  6 | 200033 | tiara123  | C2     | XI    | Middle | TB                  |    300000 |
+|  8 | 300022 | maya123   | B3     | XII   | Senior | TKJ                 |    350000 |
+|  9 | 300033 | ulya123   | C3     | XII   | Senior | TB                  |    350000 |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+8 rows in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa WHERE username LIKE '%n%';
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+| id | nisn   | username | id_spp | kelas | level  | kompetensi_keahlian | biaya_spp |
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+|  2 | 100022 | anggi123 | B1     | X     | Junior | TKJ                 |    250000 |
+|  4 | 200011 | nova123  | A2     | XI    | Middle | RPL                 |    300000 |
+|  5 | 200022 | nita123  | B2     | XI    | Middle | TKJ                 |    300000 |
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+3 rows in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa WHERE nisn BETWEEN '100022' AND '300022';
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+| id | nisn   | username  | id_spp | kelas | level  | kompetensi_keahlian | biaya_spp |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+|  2 | 100022 | anggi123  | B1     | X     | Junior | TKJ                 |    250000 |
+|  3 | 100033 | hikmah123 | C1     | X     | Junior | TB                  |    250000 |
+|  4 | 200011 | nova123   | A2     | XI    | Middle | RPL                 |    300000 |
+|  5 | 200022 | nita123   | B2     | XI    | Middle | TKJ                 |    300000 |
+|  6 | 200033 | tiara123  | C2     | XI    | Middle | TB                  |    300000 |
+|  7 | 300011 | shofi123  | A3     | XII   | Senior | RPL                 |    350000 |
+|  8 | 300022 | maya123   | B3     | XII   | Senior | TKJ                 |    350000 |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+7 rows in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa WHERE nisn NOT BETWEEN '100022' AND '300022';
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+| id | nisn   | username | id_spp | kelas | level  | kompetensi_keahlian | biaya_spp |
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+|  1 | 100011 | elva123  | A1     | X     | Junior | RPL                 |    250000 |
+|  9 | 300033 | ulya123  | C3     | XII   | Senior | TB                  |    350000 |
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+2 rows in set (0.000 sec);
+
+MariaDB [siswa]> select * from siswa WHERE level IN ('Junior', 'Senior');
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+| id | nisn   | username  | id_spp | kelas | level  | kompetensi_keahlian | biaya_spp |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+|  1 | 100011 | elva123   | A1     | X     | Junior | RPL                 |    250000 |
+|  2 | 100022 | anggi123  | B1     | X     | Junior | TKJ                 |    250000 |
+|  3 | 100033 | hikmah123 | C1     | X     | Junior | TB                  |    250000 |
+|  7 | 300011 | shofi123  | A3     | XII   | Senior | RPL                 |    350000 |
+|  8 | 300022 | maya123   | B3     | XII   | Senior | TKJ                 |    350000 |
+|  9 | 300033 | ulya123   | C3     | XII   | Senior | TB                  |    350000 |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+6 rows in set (0.000 sec)
+
+MariaDB [siswa]> select * from siswa WHERE level NOT IN ('Junior', 'Senior');
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+| id | nisn   | username | id_spp | kelas | level  | kompetensi_keahlian | biaya_spp |
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+|  4 | 200011 | nova123  | A2     | XI    | Middle | RPL                 |    300000 |
+|  5 | 200022 | nita123  | B2     | XI    | Middle | TKJ                 |    300000 |
+|  6 | 200033 | tiara123 | C2     | XI    | Middle | TB                  |    300000 |
++----+--------+----------+--------+-------+--------+---------------------+-----------+
+3 rows in set (0.001 sec)
+
+
+MariaDB [siswa]> select id AS nomor,
+    -> nisn AS nomor_induk,
+    -> username AS name,
+    -> id_spp AS id,
+    -> kelas AS class,
+    -> level AS tingkatan,
+    -> kompetensi_keahlian AS jurusan,
+    -> biaya_spp AS spp_perbulan
+    -> FROM siswa AS bendahara;
++-------+-------------+-----------+------+-------+-----------+---------+--------------+
+| nomor | nomor_induk | name      | id   | class | tingkatan | jurusan | spp_perbulan |
++-------+-------------+-----------+------+-------+-----------+---------+--------------+
+|     1 | 100011      | elva123   | A1   | X     | Junior    | RPL     |       250000 |
+|     2 | 100022      | anggi123  | B1   | X     | Junior    | TKJ     |       250000 |
+|     3 | 100033      | hikmah123 | C1   | X     | Junior    | TB      |       250000 |
+|     4 | 200011      | nova123   | A2   | XI    | Middle    | RPL     |       300000 |
+|     5 | 200022      | nita123   | B2   | XI    | Middle    | TKJ     |       300000 |
+|     6 | 200033      | tiara123  | C2   | XI    | Middle    | TB      |       300000 |
+|     7 | 300011      | shofi123  | A3   | XII   | Senior    | RPL     |       350000 |
+|     8 | 300022      | maya123   | B3   | XII   | Senior    | TKJ     |       350000 |
+|     9 | 300033      | ulya123   | C3   | XII   | Senior    | TB      |       350000 |
++-------+-------------+-----------+------+-------+-----------+---------+--------------+
+9 rows in set (0.001 sec)
+
+MariaDB [siswa]> select id, nisn, username from siswa ORDER BY level;
++----+--------+-----------+
+| id | nisn   | username  |
++----+--------+-----------+
+|  1 | 100011 | elva123   |
+|  2 | 100022 | anggi123  |
+|  3 | 100033 | hikmah123 |
+|  4 | 200011 | nova123   |
+|  5 | 200022 | nita123   |
+|  6 | 200033 | tiara123  |
+|  7 | 300011 | shofi123  |
+|  8 | 300022 | maya123   |
+|  9 | 300033 | ulya123   |
++----+--------+-----------+
+9 rows in set (0.001 sec)
+
+MariaDB [siswa]> select id, nisn, level from siswa ORDER BY kompetensi_keahlian ASC, biaya_spp DESC;
++----+--------+--------+
+| id | nisn   | level  |
++----+--------+--------+
+|  7 | 300011 | Senior |
+|  4 | 200011 | Middle |
+|  1 | 100011 | Junior |
+|  9 | 300033 | Senior |
+|  6 | 200033 | Middle |
+|  3 | 100033 | Junior |
+|  8 | 300022 | Senior |
+|  5 | 200022 | Middle |
+|  2 | 100022 | Junior |
++----+--------+--------+
+9 rows in set (0.001 sec)
+
+MariaDB [siswa]> select nisn, username, level from siswa ORDER BY id DESC, biaya_spp ASC;
++--------+-----------+--------+
+| nisn   | username  | level  |
++--------+-----------+--------+
+| 300033 | ulya123   | Senior |
+| 300022 | maya123   | Senior |
+| 300011 | shofi123  | Senior |
+| 200033 | tiara123  | Middle |
+| 200022 | nita123   | Middle |
+| 200011 | nova123   | Middle |
+| 100033 | hikmah123 | Junior |
+| 100022 | anggi123  | Junior |
+| 100011 | elva123   | Junior |
++--------+-----------+--------+
+9 rows in set (0.001 sec)
+
+MariaDB [siswa]> select * from siswa ORDER BY id LIMIT 3;
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+| id | nisn   | username  | id_spp | kelas | level  | kompetensi_keahlian | biaya_spp |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+|  1 | 100011 | elva123   | A1     | X     | Junior | RPL                 |    250000 |
+|  2 | 100022 | anggi123  | B1     | X     | Junior | TKJ                 |    250000 |
+|  3 | 100033 | hikmah123 | C1     | X     | Junior | TB                  |    250000 |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+
+3 rows in set (0.001 sec)
+
+MariaDB [siswa]> ALTER TABLE siswa ADD created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP;
+Query OK, 0 rows affected (0.010 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [siswa]> select * from siswa;
++----+--------+-----------+--------+-------+--------+---------------------+-----------+---------------------+
+| id | nisn   | username  | id_spp | kelas | level  | kompetensi_keahlian | biaya_spp | created_at          |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+---------------------+
+|  1 | 100011 | elva123   | A1     | X     | Junior | RPL                 |    250000 | 2022-10-25 11:35:56 |
+|  2 | 100022 | anggi123  | B1     | X     | Junior | TKJ                 |    250000 | 2022-10-25 11:35:56 |
+|  3 | 100033 | hikmah123 | C1     | X     | Junior | TB                  |    250000 | 2022-10-25 11:35:56 |
+|  4 | 200011 | nova123   | A2     | XI    | Middle | RPL                 |    300000 | 2022-10-25 11:35:56 |
+|  5 | 200022 | nita123   | B2     | XI    | Middle | TKJ                 |    300000 | 2022-10-25 11:35:56 |
+|  6 | 200033 | tiara123  | C2     | XI    | Middle | TB                  |    300000 | 2022-10-25 11:35:56 |
+|  7 | 300011 | shofi123  | A3     | XII   | Senior | RPL                 |    350000 | 2022-10-25 11:35:56 |
+|  8 | 300022 | maya123   | B3     | XII   | Senior | TKJ                 |    350000 | 2022-10-25 11:35:56 |
+|  9 | 300033 | ulya123   | C3     | XII   | Senior | TB                  |    350000 | 2022-10-25 11:35:56 |
++----+--------+-----------+--------+-------+--------+---------------------+-----------+---------------------+
+9 rows in set (0.001 sec)

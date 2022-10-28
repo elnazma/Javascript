@@ -1,0 +1,379 @@
+Microsoft Windows [Version 10.0.19044.2130]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\LENOVO>cd..
+
+C:\Users>cd..
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 148
+Server version: 10.4.24-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use products;
+Database changed
+MariaDB [products]> use belajar_db;
+Database changed
+MariaDB [belajar_db]> create table categories(
+    -> id varchar(10) NOT NULL primary key,
+    -> name varchar(100) NOT NULL) ENGINE = InnoDB;
+Query OK, 0 rows affected (0.048 sec)
+
+MariaDB [belajar_db]> select * from categories;
+Empty set (0.004 sec)
+
+MariaDB [belajar_db]> desc categories;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| id    | varchar(10)  | NO   | PRI | NULL    |       |
+| name  | varchar(100) | NO   |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+2 rows in set (0.050 sec)
+
+MariaDB [belajar_db]> insert into table categories
+    -> values ('C0001', 'Makanan'),
+    -> ('C0002', 'Minuman'),
+    -> ('C003', 'Lain-lain');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'table categories
+values ('C0001', 'Makanan'),
+('C0002', 'Minuman'),
+('C003', ...' at line 1
+MariaDB [belajar_db]> insert into categories value
+    -> ('C0001', 'Makanan'),
+    -> ('C0002', 'Minuman'),
+    -> ('C003', 'Lain-lain');
+Query OK, 3 rows affected (0.042 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+MariaDB [belajar_db]> desc categories;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| id    | varchar(10)  | NO   | PRI | NULL    |       |
+| name  | varchar(100) | NO   |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+2 rows in set (0.043 sec)
+
+MariaDB [belajar_db]> select * from categories;
++-------+-----------+
+| id    | name      |
++-------+-----------+
+| C0001 | Makanan   |
+| C0002 | Minuman   |
+| C003  | Lain-lain |
++-------+-----------+
+3 rows in set (0.001 sec)
+
+MariaDB [belajar_db]> desc products;
++-------------+------------------+------+-----+---------------------+-------+
+| Field       | Type             | Null | Key | Default             | Extra |
++-------------+------------------+------+-----+---------------------+-------+
+| id          | varchar(10)      | NO   |     | NULL                |       |
+| name        | varchar(100)     | NO   |     | NULL                |       |
+| description | text             | YES  |     | NULL                |       |
+| price       | int(10) unsigned | NO   |     | NULL                |       |
+| quantity    | int(10) unsigned | NO   |     | 0                   |       |
+| created_at  | timestamp        | NO   |     | current_timestamp() |       |
++-------------+------------------+------+-----+---------------------+-------+
+6 rows in set (0.043 sec)
+
+MariaDB [belajar_db]> select * from products;
+Empty set (0.000 sec)
+
+MariaDB [belajar_db]> insert into products value
+    -> ('P0001', 'Mie Ayam Original', 15000, 100);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [belajar_db]> insert into products
+    -> values ('P0001', 'Mie Ayam Original', 15000, 100);
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+MariaDB [belajar_db]>
+MariaDB [belajar_db]> select id, price,
+    -> if(price <= 15000, 'Murah',
+    -> if(price <= 20000, 'Mahal', 'Mahal Banget')) as 'Mahal?'
+    -> from products;
++-------+-------+--------------+
+| id    | price | Mahal?       |
++-------+-------+--------------+
+| P0001 | 15000 | Murah        |
+| P0002 | 20000 | Mahal        |
+| P0003 | 20000 | Mahal        |
+| P0004 | 25000 | Mahal Banget |
+| P0005 | 35000 | Mahal Banget |
+| P0006 | 25000 | Mahal Banget |
+| P0007 | 10000 | Murah        |
+| P0008 | 15000 | Murah        |
+| P0010 |  2500 | Murah        |
+| P0011 | 10000 | Murah        |
+| P0012 |  5000 | Murah        |
+| P0013 | 20000 | Mahal        |
+| P0014 | 20000 | Mahal        |
+| P0015 | 25000 | Mahal Banget |
++-------+-------+--------------+
+14 rows in set (0.000 sec)
+
+MariaDB [belajar_db]> select id, name IFNULL(description,
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(description,' at line 1
+MariaDB [belajar_db]> select id, name IFNULL(description, 'Kosong')
+    -> from products;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(description, 'Kosong')
+from products' at line 1
+MariaDB [belajar_db]> SELECT id, name IFNULL(description, 'Kosong')
+    -> FROM products;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(description, 'Kosong')
+FROM products' at line 1
+MariaDB [belajar_db]> select count(id) as 'Total Product' from products;
++---------------+
+| Total Product |
++---------------+
+|            14 |
++---------------+
+1 row in set (0.000 sec)
+
+MariaDB [belajar_db]> select avg(id) as 'Rata - rata' from products;
++-------------+
+| Rata - rata |
++-------------+
+|           0 |
++-------------+
+1 row in set, 14 warnings (0.038 sec)
+
+MariaDB [belajar_db]> select avg(price) as 'Rata - rata' from products;
++-------------+
+| Rata - rata |
++-------------+
+|  17678.5714 |
++-------------+
+1 row in set (0.000 sec)
+
+MariaDB [belajar_db]> select max(price) as 'Harga Termahal' from products;
++----------------+
+| Harga Termahal |
++----------------+
+|          35000 |
++----------------+
+1 row in set (0.000 sec)	
+
+MariaDB [belajar_db]> select min(price) as 'Harga Termurah' from products;
++----------------+
+| Harga Termurah |
++----------------+
+|           2500 |
++----------------+
+1 row in set (0.000 sec)
+
+MariaDB [belajar_db]> select category,
+    -> count(id) as 'Total Product'
+    -> from products
+    -> group by category;
++-----------+---------------+
+| category  | Total Product |
++-----------+---------------+
+| NULL      |             3 |
+| Makanan   |             6 |
+| Minuman   |             2 |
+| Lain-Lain |             3 |
++-----------+---------------+
+4 rows in set (0.001 sec)
+
+MariaDB [belajar_db]> select SUM(price) as 'Total' from products;
++--------+
+| Total  |
++--------+
+| 247500 |
++--------+
+1 row in set (0.001 sec)
+
+MariaDB [belajar_db]> select SUM(id) as 'Total' from products;
++-------+
+| Total |
++-------+
+|     0 |
++-------+
+1 row in set, 14 warnings (0.000 sec)
+
+MariaDB [belajar_db]> select category,
+    -> avg(id) as 'Total Product'
+    -> ;
+ERROR 1054 (42S22): Unknown column 'category' in 'field list'
+MariaDB [belajar_db]> select category,
+    -> avg(price) as 'Total Product'
+    -> from products
+    -> group by category;
++-----------+---------------+
+| category  | Total Product |
++-----------+---------------+
+| NULL      |    26666.6667 |
+| Makanan   |    20833.3333 |
+| Minuman   |    12500.0000 |
+| Lain-Lain |     5833.3333 |
++-----------+---------------+
+4 rows in set (0.001 sec)
+
+MariaDB [belajar_db]> select category,
+    -> min(price) as 'Harga Minimal'
+    -> from products
+    -> group by category;
++-----------+---------------+
+| category  | Harga Minimal |
++-----------+---------------+
+| NULL      |         20000 |
+| Makanan   |         15000 |
+| Minuman   |         10000 |
+| Lain-Lain |          2500 |
++-----------+---------------+
+4 rows in set (0.001 sec)
+
+MariaDB [belajar_db]> select category,
+    -> sum(price) as 'Total'
+    -> from products
+    -> group by category;
++-----------+--------+
+| category  | Total  |
++-----------+--------+
+| NULL      |  80000 |
+| Makanan   | 125000 |
+| Minuman   |  25000 |
+| Lain-Lain |  17500 |
++-----------+--------+
+4 rows in set (0.001 sec)
+
+MariaDB [belajar_db]> select category,
+    -> count(id) as 'Produk Termahal',
+    -> category
+    -> from products
+    -> group by category
+    -> having total > 1;
+ERROR 1054 (42S22): Unknown column 'total' in 'having clause'
+MariaDB [belajar_db]> select category,
+    -> count(id) as total,,
+    -> category
+    -> from products
+    -> having total > 1;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '
+category
+from products
+having total > 1' at line 2
+MariaDB [belajar_db]> select category,
+    -> count(id) as 'Produk Termahal',
+    -> from products;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'from products' at line 3
+MariaDB [belajar_db]> select category,
+    -> count(id) as total
+    -> from products
+    -> having total > 1;
++----------+-------+
+| category | total |
++----------+-------+
+| Makanan  |    14 |
++----------+-------+
+1 row in set (0.000 sec)
+
+MariaDB [belajar_db]> select category,
+    -> count(id) as total
+    -> from products
+    -> group by category
+    -> having total > 1;
++-----------+-------+
+| category  | total |
++-----------+-------+
+| NULL      |     3 |
+| Makanan   |     6 |
+| Minuman   |     2 |
+| Lain-Lain |     3 |
++-----------+-------+
+4 rows in set (0.001 sec)
+
+MariaDB [belajar_db]> select category,
+    -> avg(price) as total
+    -> from products
+    -> group by category
+    -> having total > 1;
++-----------+------------+
+| category  | total      |
++-----------+------------+
+| NULL      | 26666.6667 |
+| Makanan   | 20833.3333 |
+| Minuman   | 12500.0000 |
+| Lain-Lain |  5833.3333 |
++-----------+------------+
+4 rows in set (0.001 sec)
+
+MariaDB [belajar_db]> select category,
+    -> min(price) as total
+    -> from products
+    -> group by category
+    -> having total > 1;
++-----------+-------+
+| category  | total |
++-----------+-------+
+| NULL      | 20000 |
+| Makanan   | 15000 |
+| Minuman   | 10000 |
+| Lain-Lain |  2500 |
++-----------+-------+
+4 rows in set (0.001 sec)
+
+MariaDB [belajar_db]> select category,
+    -> sum(price) as total
+    -> from products
+    -> group by category
+    -> having total > 1;
++-----------+--------+
+| category  | total  |
++-----------+--------+
+| NULL      |  80000 |
+| Makanan   | 125000 |
+| Minuman   |  25000 |
+| Lain-Lain |  17500 |
++-----------+--------+
+4 rows in set (0.001 sec)
+
+MariaDB [belajar_db]> create table customers(
+    -> id int NOT NULL auto_increment,
+    -> email varchar(100) NOT NULL,
+    -> first_name varchar(100) NOT NULL,
+    -> last_name varchar(100),
+    -> primary key (id),
+    -> unique key email_unique (email));
+Query OK, 0 rows affected (0.010 sec)
+
+MariaDB [belajar_db]> select * from customers;
+Empty set (0.003 sec)
+
+MariaDB [belajar_db]> desc customers;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| email      | varchar(100) | NO   | UNI | NULL    |                |
+| first_name | varchar(100) | NO   |     | NULL    |                |
+| last_name  | varchar(100) | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.052 sec)
+
+MariaDB [belajar_db]> insert into customers(email, first_name, last_name)
+    -> values ('nazlita@gmail.com', 'Elva', 'Nazlita');
+Query OK, 1 row affected (0.040 sec)
+
+MariaDB [belajar_db]> select * from customers;
++----+-------------------+------------+-----------+
+| id | email             | first_name | last_name |
++----+-------------------+------------+-----------+
+|  1 | nazlita@gmail.com | Elva       | Nazlita   |
++----+-------------------+------------+-----------+
+1 row in set (0.000 sec)
+
+MariaDB [belajar_db]>

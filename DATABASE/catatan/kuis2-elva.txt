@@ -1,0 +1,374 @@
+Microsoft Windows [Version 10.0.19044.2130]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\LENOVO>cd..
+
+C:\Users>cd..
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 12
+Server version: 10.4.24-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database penjualan;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> use penjualan;
+Database changed
+MariaDB [penjualan]> create table supplier(
+    -> id_supplier varchar(10) not null primary key,
+    -> nama_supplier varchar(100) not null,
+    -> no_telp char(13) not null,
+    -> alamat varchar(100)) engine = InnoDB;
+Query OK, 0 rows affected (0.022 sec)
+
+MariaDB [penjualan]> desc supplier;
++---------------+--------------+------+-----+---------+-------+
+| Field         | Type         | Null | Key | Default | Extra |
++---------------+--------------+------+-----+---------+-------+
+| id_supplier   | varchar(10)  | NO   | PRI | NULL    |       |
+| nama_supplier | varchar(100) | NO   |     | NULL    |       |
+| no_telp       | char(13)     | NO   |     | NULL    |       |
+| alamat        | varchar(100) | YES  |     | NULL    |       |
++---------------+--------------+------+-----+---------+-------+
+4 rows in set (0.021 sec)
+
+MariaDB [penjualan]> create table barang(
+    -> id_barang varchar(10) not null primary key,
+    -> nama_barang varchar(100) not null,
+    -> harga int(11) not null,
+    -> stok int(11) not null,
+    -> id_supplier varchar(10),
+    -> unique key id_supplier_unique (id_supplier)) engine = InnoDB;
+Query OK, 0 rows affected (0.047 sec)
+
+MariaDB [penjualan]> desc barang;
++-------------+--------------+------+-----+---------+-------+
+| Field       | Type         | Null | Key | Default | Extra |
++-------------+--------------+------+-----+---------+-------+
+| id_barang   | varchar(10)  | NO   | PRI | NULL    |       |
+| nama_barang | varchar(100) | NO   |     | NULL    |       |
+| harga       | int(11)      | NO   |     | NULL    |       |
+| stok        | int(11)      | NO   |     | NULL    |       |
+| id_supplier | varchar(10)  | YES  | UNI | NULL    |       |
++-------------+--------------+------+-----+---------+-------+
+5 rows in set (0.019 sec)
+
+MariaDB [penjualan]> create table pembeli(
+    -> id_pembeli varchar(10) not null primary key,
+    -> nama_pembeli varchar(100) not null,
+    -> jenis_kelamin enum('Laki-laki', 'Perempuan'),
+    -> no_telp char(13),
+    -> alamat varchar(100)) engine = InnoDB;
+Query OK, 0 rows affected (0.023 sec)
+
+MariaDB [penjualan]> create table transaksi(
+    -> id_transaksi varchar(10) not null primary key,
+    -> id_barang varchar(10) not null,
+    -> id_pembeli varchar(10) not null,
+    -> tanggal date,
+    -> keterangan varchar(100),
+    -> unique key id_barang_unique (id_barang),
+    -> unique key id_pembeli_unique (id_pembeli)) engine = InnoDB;
+Query OK, 0 rows affected (0.024 sec)
+
+MariaDB [penjualan]> desc transaksi;
++--------------+--------------+------+-----+---------+-------+
+| Field        | Type         | Null | Key | Default | Extra |
++--------------+--------------+------+-----+---------+-------+
+| id_transaksi | varchar(10)  | NO   | PRI | NULL    |       |
+| id_barang    | varchar(10)  | NO   | UNI | NULL    |       |
+| id_pembeli   | varchar(10)  | NO   | UNI | NULL    |       |
+| tanggal      | date         | YES  |     | NULL    |       |
+| keterangan   | varchar(100) | YES  |     | NULL    |       |
++--------------+--------------+------+-----+---------+-------+
+5 rows in set (0.019 sec)
+
+MariaDB [penjualan]> create table pembayaran(
+    -> id_pembayaran varchar(10) not null primary key,
+    -> tgl_bayar date,
+    -> total_bayar int(10) not null,
+    -> id_transaksi varchar(10) not null,
+    -> unique key id_transaksi_unique (id_transaksi)) engine = InnoDB;
+Query OK, 0 rows affected (0.024 sec)
+
+MariaDB [penjualan]> desc pembayaran;
++---------------+-------------+------+-----+---------+-------+
+| Field         | Type        | Null | Key | Default | Extra |
++---------------+-------------+------+-----+---------+-------+
+| id_pembayaran | varchar(10) | NO   | PRI | NULL    |       |
+| tgl_bayar     | date        | YES  |     | NULL    |       |
+| total_bayar   | int(10)     | NO   |     | NULL    |       |
+| id_transaksi  | varchar(10) | NO   | UNI | NULL    |       |
++---------------+-------------+------+-----+---------+-------+
+4 rows in set (0.008 sec)
+
+MariaDB [penjualan]> insert into supplier
+    -> values ('S001', 'Maulana', '0812345678901', 'Jepara'),
+    -> ('S002', 'Maulydia', '0823456789012', 'Pati'),
+    -> ('S003', 'Khabila', '0834567890123', 'Kudus'),
+    -> ('S004', 'Janoko', '0845678901234', 'Demak');
+Query OK, 4 rows affected (0.013 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [penjualan]> select * from supplier;
++-------------+---------------+---------------+--------+
+| id_supplier | nama_supplier | no_telp       | alamat |
++-------------+---------------+---------------+--------+
+| S001        | Maulana       | 0812345678901 | Jepara |
+| S002        | Maulydia      | 0823456789012 | Pati   |
+| S003        | Khabila       | 0834567890123 | Kudus  |
+| S004        | Janoko        | 0845678901234 | Demak  |
++-------------+---------------+---------------+--------+
+4 rows in set (0.000 sec)
+
+MariaDB [penjualan]> insert into barang
+    -> values ('B001', 'Jaket', 500000, 42, 'S001'),
+    -> ('B002', 'Tas', 700000, 18, 'S002'),
+    -> ('B003', 'Sepatu', 670000, 15, 'S003'),
+    -> ('B004', 'Topi', 100000, 61, 'S004');
+Query OK, 4 rows affected (0.012 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [penjualan]> select * from barang;
++-----------+-------------+--------+------+-------------+
+| id_barang | nama_barang | harga  | stok | id_supplier |
++-----------+-------------+--------+------+-------------+
+| B001      | Jaket       | 500000 |   42 | S001        |
+| B002      | Tas         | 700000 |   18 | S002        |
+| B003      | Sepatu      | 670000 |   15 | S003        |
+| B004      | Topi        | 100000 |   61 | S004        |
++-----------+-------------+--------+------+-------------+
+4 rows in set (0.000 sec)
+
+MariaDB [penjualan]> insert into pembeli
+    -> values ('P001', 'Malik', 'Laki-laki', '085123456789', 'Jakarta'),
+    -> ('P002', 'Nazlita', 'Perempuan', '085234567890', 'Jogja'),
+    -> ('P003', 'Abil', 'Perempuan', '0853456789010', 'Surabaya'),
+    -> ('P004', 'Dwi', 'Laki-laki', '08545678901234', 'Bandung');
+Query OK, 4 rows affected, 1 warning (0.005 sec)
+Records: 4  Duplicates: 0  Warnings: 1
+
+MariaDB [penjualan]> select * from pembeli;
++------------+--------------+---------------+---------------+----------+
+| id_pembeli | nama_pembeli | jenis_kelamin | no_telp       | alamat   |
++------------+--------------+---------------+---------------+----------+
+| P001       | Malik        | Laki-laki     | 085123456789  | Jakarta  |
+| P002       | Nazlita      | Perempuan     | 085234567890  | Jogja    |
+| P003       | Abil         | Perempuan     | 0853456789010 | Surabaya |
+| P004       | Dwi          | Laki-laki     | 0854567890123 | Bandung  |
++------------+--------------+---------------+---------------+----------+
+4 rows in set (0.000 sec)
+
+MariaDB [penjualan]> insert into transaksi
+    -> values ('T001', 'B001', 'P001', 2022-10-27, 'Transaksi Selesai - Lunas'),
+    -> ('T002', 'B002', 'P002', 2022-10-28, 'Transaksi Selesai - Lunas'),
+    -> ('T003', 'B003', 'P003', 2022-10-26, 'Transaksi Selesai - Lunas'),
+    -> ('T004', 'B004', 'P004', 2022-10-23, 'Transaksi Selesai - Lunas');
+Query OK, 4 rows affected, 4 warnings (0.005 sec)
+Records: 4  Duplicates: 0  Warnings: 4
+
+MariaDB [penjualan]> select * from transaksi;
++--------------+-----------+------------+------------+---------------------------+
+| id_transaksi | id_barang | id_pembeli | tanggal    | keterangan                |
++--------------+-----------+------------+------------+---------------------------+
+| T001         | B001      | P001       | 0000-00-00 | Transaksi Selesai - Lunas |
+| T002         | B002      | P002       | 0000-00-00 | Transaksi Selesai - Lunas |
+| T003         | B003      | P003       | 0000-00-00 | Transaksi Selesai - Lunas |
+| T004         | B004      | P004       | 0000-00-00 | Transaksi Selesai - Lunas |
++--------------+-----------+------------+------------+---------------------------+
+4 rows in set (0.000 sec)
+
+MariaDB [penjualan]> UPDATE transaksi SET tanggal = '2022-10-27' WHERE id_pembeli = 'P001';
+Query OK, 1 row affected (0.038 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [penjualan]> select * from transaksi;
++--------------+-----------+------------+------------+---------------------------+
+| id_transaksi | id_barang | id_pembeli | tanggal    | keterangan                |
++--------------+-----------+------------+------------+---------------------------+
+| T001         | B001      | P001       | 2022-10-27 | Transaksi Selesai - Lunas |
+| T002         | B002      | P002       | 0000-00-00 | Transaksi Selesai - Lunas |
+| T003         | B003      | P003       | 0000-00-00 | Transaksi Selesai - Lunas |
+| T004         | B004      | P004       | 0000-00-00 | Transaksi Selesai - Lunas |
++--------------+-----------+------------+------------+---------------------------+
+4 rows in set (0.001 sec)
+
+MariaDB [penjualan]> UPDATE transaksi SET tanggal = '2022-10-28' WHERE id_pembeli = 'P002';
+Query OK, 1 row affected (0.038 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [penjualan]> UPDATE transaksi SET tanggal = '2022-10-23' WHERE id_pembeli = 'P003';
+Query OK, 1 row affected (0.038 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [penjualan]> UPDATE transaksi SET tanggal = '2022-10-21' WHERE id_pembeli = 'P004';
+Query OK, 1 row affected (0.038 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [penjualan]> select * from transaksi;
++--------------+-----------+------------+------------+---------------------------+
+| id_transaksi | id_barang | id_pembeli | tanggal    | keterangan                |
++--------------+-----------+------------+------------+---------------------------+
+| T001         | B001      | P001       | 2022-10-27 | Transaksi Selesai - Lunas |
+| T002         | B002      | P002       | 2022-10-28 | Transaksi Selesai - Lunas |
+| T003         | B003      | P003       | 2022-10-23 | Transaksi Selesai - Lunas |
+| T004         | B004      | P004       | 2022-10-21 | Transaksi Selesai - Lunas |
++--------------+-----------+------------+------------+---------------------------+
+4 rows in set (0.001 sec)
+
+MariaDB [penjualan]> UPDATE transaksi SET keterangan = 'Menunggu Pelunasan' WHERE id_pembeli = 'P001';
+Query OK, 1 row affected (0.012 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [penjualan]> UPDATE transaksi SET keterangan = 'Menunggu Pelunasan' WHERE id_pembeli = 'P004';
+Query OK, 1 row affected (0.001 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [penjualan]> select * from transaksi;
++--------------+-----------+------------+------------+---------------------------+
+| id_transaksi | id_barang | id_pembeli | tanggal    | keterangan                |
++--------------+-----------+------------+------------+---------------------------+
+| T001         | B001      | P001       | 2022-10-27 | Menunggu Pelunasan        |
+| T002         | B002      | P002       | 2022-10-28 | Transaksi Selesai - Lunas |
+| T003         | B003      | P003       | 2022-10-23 | Transaksi Selesai - Lunas |
+| T004         | B004      | P004       | 2022-10-21 | Menunggu Pelunasan        |
++--------------+-----------+------------+------------+---------------------------+
+4 rows in set (0.001 sec)
+
+MariaDB [penjualan]> UPDATE transaksi SET keterangan = 'Transaksi Selesai - Belum Lunas' WHERE id_pembeli = 'P001';
+Query OK, 1 row affected (0.013 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [penjualan]> UPDATE transaksi SET keterangan = 'Transaksi Selesai - Belum Lunas' WHERE id_pembeli = 'P004';
+Query OK, 1 row affected (0.002 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+MariaDB [penjualan]> select * from transaksi;
++--------------+-----------+------------+------------+---------------------------------+
+| id_transaksi | id_barang | id_pembeli | tanggal    | keterangan                      |
++--------------+-----------+------------+------------+---------------------------------+
+| T001         | B001      | P001       | 2022-10-27 | Transaksi Selesai - Belum Lunas |
+| T002         | B002      | P002       | 2022-10-28 | Transaksi Selesai - Lunas       |
+| T003         | B003      | P003       | 2022-10-23 | Transaksi Selesai - Lunas       |
+| T004         | B004      | P004       | 2022-10-21 | Transaksi Selesai - Belum Lunas |
++--------------+-----------+------------+------------+---------------------------------+
+4 rows in set (0.000 sec)
+
+MariaDB [penjualan]> insert into pembayaran
+    -> values ('PM1', '2022-10-27', 500000, 'T001'),
+    -> ('PM2', '2022-10-28', 700000, 'T002'),
+    -> ('PM3', '2022-10-23', 570000, 'T003'),
+    -> ('PM4', '2022-10-21', 100000, 'T004');
+Query OK, 4 rows affected (0.013 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [penjualan]> select * from pembayaran;
++---------------+------------+-------------+--------------+
+| id_pembayaran | tgl_bayar  | total_bayar | id_transaksi |
++---------------+------------+-------------+--------------+
+| PM1           | 2022-10-27 |      500000 | T001         |
+| PM2           | 2022-10-28 |      700000 | T002         |
+| PM3           | 2022-10-23 |      570000 | T003         |
+| PM4           | 2022-10-21 |      100000 | T004         |
++---------------+------------+-------------+--------------+
+4 rows in set (0.004 sec) 
+
+MariaDB [penjualan]> select * from supplier JOIN barang ON supplier.id_supplier = barang.id_supplier;
++-------------+---------------+---------------+--------+-----------+-------------+--------+------+-------------+
+| id_supplier | nama_supplier | no_telp       | alamat | id_barang | nama_barang | harga  | stok | id_supplier |
++-------------+---------------+---------------+--------+-----------+-------------+--------+------+-------------+
+| S001        | Maulana       | 0812345678901 | Jepara | B001      | Jaket       | 500000 |   42 | S001        |
+| S002        | Maulydia      | 0823456789012 | Pati   | B002      | Tas         | 700000 |   18 | S002        |
+| S003        | Khabila       | 0834567890123 | Kudus  | B003      | Sepatu      | 670000 |   15 | S003        |
+| S004        | Janoko        | 0845678901234 | Demak  | B004      | Topi        | 100000 |   61 | S004        |
++-------------+---------------+---------------+--------+-----------+-------------+--------+------+-------------+
+4 rows in set (0.038 sec)
+
+MariaDB [penjualan]> select * from barang JOIN transaksi ON barang.id_barang = transaksi.id_barang;
++-----------+-------------+--------+------+-------------+--------------+-----------+------------+------------+---------------------------------+
+| id_barang | nama_barang | harga  | stok | id_supplier | id_transaksi | id_barang | id_pembeli | tanggal    | keterangan                      |
++-----------+-------------+--------+------+-------------+--------------+-----------+------------+------------+---------------------------------+
+| B001      | Jaket       | 500000 |   42 | S001        | T001         | B001      | P001       | 2022-10-27 | Transaksi Selesai - Belum Lunas |
+| B002      | Tas         | 700000 |   18 | S002        | T002         | B002      | P002       | 2022-10-28 | Transaksi Selesai - Lunas       |
+| B003      | Sepatu      | 670000 |   15 | S003        | T003         | B003      | P003       | 2022-10-23 | Transaksi Selesai - Lunas       |
+| B004      | Topi        | 100000 |   61 | S004        | T004         | B004      | P004       | 2022-10-21 | Transaksi Selesai - Belum Lunas |
++-----------+-------------+--------+------+-------------+--------------+-----------+------------+------------+---------------------------------+
+4 rows in set (0.000 sec)
+
+MariaDB [penjualan]> select * from transaksi JOIN pembayaran ON transaksi.id_transaksi = pembayaran.id_transaksi;
++--------------+-----------+------------+------------+---------------------------------+---------------+------------+-------------+--------------+
+| id_transaksi | id_barang | id_pembeli | tanggal    | keterangan                      | id_pembayaran | tgl_bayar  | total_bayar | id_transaksi |
++--------------+-----------+------------+------------+---------------------------------+---------------+------------+-------------+--------------+
+| T001         | B001      | P001       | 2022-10-27 | Transaksi Selesai - Belum Lunas | PM1           | 2022-10-27 |      500000 | T001         |
+| T002         | B002      | P002       | 2022-10-28 | Transaksi Selesai - Lunas       | PM2           | 2022-10-28 |      700000 | T002         |
+| T003         | B003      | P003       | 2022-10-23 | Transaksi Selesai - Lunas       | PM3           | 2022-10-23 |      570000 | T003         |
+| T004         | B004      | P004       | 2022-10-21 | Transaksi Selesai - Belum Lunas | PM4           | 2022-10-21 |      100000 | T004         |
++--------------+-----------+------------+------------+---------------------------------+---------------+------------+-------------+--------------+
+4 rows in set (0.000 sec)
+
+MariaDB [penjualan]> select * from pembeli JOIN transaksi ON pembeli.id_pembeli= transaksi.id_pembeli;
++------------+--------------+---------------+---------------+----------+--------------+-----------+------------+------------+---------------------------------+
+| id_pembeli | nama_pembeli | jenis_kelamin | no_telp       | alamat   | id_transaksi | id_barang | id_pembeli | tanggal    | keterangan                      |
++------------+--------------+---------------+---------------+----------+--------------+-----------+------------+------------+---------------------------------+
+| P001       | Malik        | Laki-laki     | 085123456789  | Jakarta  | T001         | B001      | P001       | 2022-10-27 | Transaksi Selesai - Belum Lunas |
+| P002       | Nazlita      | Perempuan     | 085234567890  | Jogja    | T002         | B002      | P002       | 2022-10-28 | Transaksi Selesai - Lunas       |
+| P003       | Abil         | Perempuan     | 0853456789010 | Surabaya | T003         | B003      | P003       | 2022-10-23 | Transaksi Selesai - Lunas       |
+| P004       | Dwi          | Laki-laki     | 0854567890123 | Bandung  | T004         | B004      | P004       | 2022-10-21 | Transaksi Selesai - Belum Lunas |
++------------+--------------+---------------+---------------+----------+--------------+-----------+------------+------------+---------------------------------+
+4 rows in set (0.001 sec)	
+
+MariaDB [penjualan]> select nama_supplier, nama_barang FROM supplier INNER JOIN barang ON supplier.id_supplier = barang.id_supplier;
++---------------+-------------+
+| nama_supplier | nama_barang |
++---------------+-------------+
+| Maulana       | Jaket       |
+| Maulydia      | Tas         |
+| Khabila       | Sepatu      |
+| Janoko        | Topi        |
++---------------+-------------+
+4 rows in set (0.001 sec)
+
+MariaDB [penjualan]> select nama_barang, harga, id_transaksi FROM barang INNER JOIN transaksi ON barang.id_barang = transaksi.id_barang;
++-------------+--------+--------------+
+| nama_barang | harga  | id_transaksi |
++-------------+--------+--------------+
+| Jaket       | 500000 | T001         |
+| Tas         | 700000 | T002         |
+| Sepatu      | 670000 | T003         |
+| Topi        | 100000 | T004         |
++-------------+--------+--------------+
+4 rows in set (0.001 sec)
+
+MariaDB [penjualan]> select id_barang, tanggal, nama_pembeli, alamat FROM pembeli INNER JOIN transaksi ON pembeli.id_pembeli = transaksi.id_pembeli;
++-----------+------------+--------------+----------+
+| id_barang | tanggal    | nama_pembeli | alamat   |
++-----------+------------+--------------+----------+
+| B001      | 2022-10-27 | Malik        | Jakarta  |
+| B002      | 2022-10-28 | Nazlita      | Jogja    |
+| B003      | 2022-10-23 | Abil         | Surabaya |
+| B004      | 2022-10-21 | Dwi          | Bandung  |
++-----------+------------+--------------+----------+
+4 rows in set (0.001 sec)
+
+MariaDB [penjualan]> select id_pembayaran, total_bayar FROM transaksi INNER JOIN pembayaran ON transaksi.id_transaksi = pembayaran.id_transaksi;
++---------------+-------------+
+| id_pembayaran | total_bayar |
++---------------+-------------+
+| PM1           |      500000 |
+| PM2           |      700000 |
+| PM3           |      570000 |
+| PM4           |      100000 |
++---------------+-------------+
+4 rows in set (0.001 sec)

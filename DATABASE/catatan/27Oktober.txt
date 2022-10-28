@@ -1,0 +1,241 @@
+Microsoft Windows [Version 10.0.19044.2130]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\LENOVO>cd..
+
+C:\Users>cd..
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 95
+Server version: 10.4.24-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> show databases;
++--------------------+
+| Database           |
++--------------------+
+| belajar_db         |
+| information_schema |
+| mysql              |
+| performance_schema |
+| phpmyadmin         |
+| products           |
+| siswa              |
+| study              |
+| test               |
++--------------------+
+9 rows in set (0.001 sec)
+
+MariaDB [(none)]> create database penjualan;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> use penjualan;
+Database changed
+MariaDB [penjualan]> create table supplier(
+    -> id_supplier int(11) not null primary key auto_increment,
+    -> nama_supplier varchar(100) not null,
+    -> no_telp char(13) not null,
+    -> alamat varchar(100));
+Query OK, 0 rows affected (0.022 sec)
+
+MariaDB [penjualan]> select * from supplier;
+Empty set (0.004 sec)
+
+MariaDB [penjualan]> desc supplier;
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| id_supplier   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nama_supplier | varchar(100) | NO   |     | NULL    |                |
+| no_telp       | char(13)     | NO   |     | NULL    |                |
+| alamat        | varchar(100) | YES  |     | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.007 sec)
+
+MariaDB [penjualan]> create table barang(
+    -> id_barang int(11) not null primary key auto_increment,
+    -> nama_barang varchar(100) not null,
+    -> harga int(11) not null,
+    -> stok int(11),
+    -> id_supplier unique key id_supplier_unique (id_supplier)) engine = InnoDB;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'unique key id_supplier_unique (id_supplier)) engine = InnoDB' at line 6
+MariaDB [penjualan]> create table barang(
+    -> id_barang int(11) not null primary key auto_increment,
+    -> nama_barang varchar(100) not null,
+    -> harga int(11) not null,
+    -> stok int(11),
+    -> id_supplier int(11) not null,
+    -> unique key id_supplier_unique (id_supplier)) engine = InnoDB;
+Query OK, 0 rows affected (0.023 sec)
+
+MariaDB [penjualan]> desc barang;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id_barang   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nama_barang | varchar(100) | NO   |     | NULL    |                |
+| harga       | int(11)      | NO   |     | NULL    |                |
+| stok        | int(11)      | YES  |     | NULL    |                |
+| id_supplier | int(11)      | NO   | UNI | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.024 sec)
+
+MariaDB [penjualan]> create table pembeli(
+    -> id_pembeli int(11) not null primary key auto_increment,
+    -> nama_pembeli varchar(100) not null,
+    -> jenis_kelamin enum('Laki-laki', 'Perempuan'),
+    -> no_telp char(13),
+    -> alamat text);
+Query OK, 0 rows affected (0.027 sec)
+
+MariaDB [penjualan]> desc barang;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id_barang   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nama_barang | varchar(100) | NO   |     | NULL    |                |
+| harga       | int(11)      | NO   |     | NULL    |                |
+| stok        | int(11)      | YES  |     | NULL    |                |
+| id_supplier | int(11)      | NO   | UNI | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.018 sec)
+
+MariaDB [penjualan]> create table transaksi(
+    -> id_transaksi int(11) not null primary key auto_increment,
+    -> id_barang int(11) not null,
+    -> id_pembeli int(11) not null,
+    -> tanggal date,
+    -> keterangan text,
+    -> unique key id_barang_unique (id_barang),
+    -> unique key id_pembeli_unique (id_pembeli)) engine = InnoDB;
+Query OK, 0 rows affected (0.055 sec)
+
+MariaDB [penjualan]> desc transaksi;
++--------------+---------+------+-----+---------+----------------+
+| Field        | Type    | Null | Key | Default | Extra          |
++--------------+---------+------+-----+---------+----------------+
+| id_transaksi | int(11) | NO   | PRI | NULL    | auto_increment |
+| id_barang    | int(11) | NO   | UNI | NULL    |                |
+| id_pembeli   | int(11) | NO   | UNI | NULL    |                |
+| tanggal      | date    | YES  |     | NULL    |                |
+| keterangan   | text    | YES  |     | NULL    |                |
++--------------+---------+------+-----+---------+----------------+
+5 rows in set (0.067 sec)
+
+MariaDB [penjualan]> create table pembayaran(
+    -> id_pembayaran int(11) not null primary key auto_increment,
+    -> tanggal_bayar date,
+    -> total_bayar int(11) not null,
+    -> unique key id_transaksi_unique (id_transaksi)) engine = InnoDB;
+ERROR 1072 (42000): Key column 'id_transaksi' doesn't exist in table
+MariaDB [penjualan]> create table pembayaran(
+    -> id_pembayaran int(11) not null primary key auto_increment,
+    -> tanggal_bayar date,
+    -> total_bayar int(11) not null,
+    -> id_transaksi int(11) not null,
+    -> unique key id_transaksi_unique (id_transaksi)) engine = InnoDB;
+Query OK, 0 rows affected (0.052 sec)
+
+MariaDB [penjualan]> desc pembayaran;
++---------------+---------+------+-----+---------+----------------+
+| Field         | Type    | Null | Key | Default | Extra          |
++---------------+---------+------+-----+---------+----------------+
+| id_pembayaran | int(11) | NO   | PRI | NULL    | auto_increment |
+| tanggal_bayar | date    | YES  |     | NULL    |                |
+| total_bayar   | int(11) | NO   |     | NULL    |                |
+| id_transaksi  | int(11) | NO   | UNI | NULL    |                |
++---------------+---------+------+-----+---------+----------------+
+4 rows in set (0.049 sec)
+
+MariaDB [penjualan]> show tables;
++---------------------+
+| Tables_in_penjualan |
++---------------------+
+| barang              |
+| pembayaran          |
+| pembeli             |
+| supplier            |
+| transaksi           |
++---------------------+
+5 rows in set (0.004 sec)
+
+MariaDB [penjualan]> select * from supplier;
+Empty set (0.001 sec)
+
+MariaDB [penjualan]> desc supplier;
++---------------+--------------+------+-----+---------+----------------+
+| Field         | Type         | Null | Key | Default | Extra          |
++---------------+--------------+------+-----+---------+----------------+
+| id_supplier   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nama_supplier | varchar(100) | NO   |     | NULL    |                |
+| no_telp       | char(13)     | NO   |     | NULL    |                |
+| alamat        | varchar(100) | YES  |     | NULL    |                |
++---------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.008 sec)
+
+MariaDB [penjualan]> insert into supplier(nama_supplier, no_telp, alamat)
+    -> values ('Malik Maulana', '0812345678901', 'Pati'),
+    -> ('Zaky Fuad', '0823456789012', 'Pati'),
+    -> ('Ahmad Rizza', '0834567890123', 'Jepara'),
+    -> ('Muhammad Fadly', '0845678901234', 'Jakarta');
+Query OK, 4 rows affected (0.040 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [penjualan]> desc barang;
++-------------+--------------+------+-----+---------+----------------+
+| Field       | Type         | Null | Key | Default | Extra          |
++-------------+--------------+------+-----+---------+----------------+
+| id_barang   | int(11)      | NO   | PRI | NULL    | auto_increment |
+| nama_barang | varchar(100) | NO   |     | NULL    |                |
+| harga       | int(11)      | NO   |     | NULL    |                |
+| stok        | int(11)      | YES  |     | NULL    |                |
+| id_supplier | int(11)      | NO   | UNI | NULL    |                |
++-------------+--------------+------+-----+---------+----------------+
+5 rows in set (0.056 sec)
+
+MariaDB [penjualan]> insert into barang
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [penjualan]> insert into barang
+    -> (nama_barang, harga, stok, id_supplier)
+    -> values ('Motor', 20000000, 31, 1),
+    -> ('Kulkas', 2000000, 44, 2),
+    -> ('Mesin Cuci', 1000000, 18, 3),
+    -> ('Televisi', 1500000, 68, 4);
+Query OK, 4 rows affected (0.040 sec)
+Records: 4  Duplicates: 0  Warnings: 0
+
+MariaDB [penjualan]> select * from supplier;
++-------------+----------------+---------------+---------+
+| id_supplier | nama_supplier  | no_telp       | alamat  |
++-------------+----------------+---------------+---------+
+|           1 | Malik Maulana  | 0812345678901 | Pati    |
+|           2 | Zaky Fuad      | 0823456789012 | Pati    |
+|           3 | Ahmad Rizza    | 0834567890123 | Jepara  |
+|           4 | Muhammad Fadly | 0845678901234 | Jakarta |
++-------------+----------------+---------------+---------+
+4 rows in set (0.001 sec)
+
+MariaDB [penjualan]> select * from barang;
++-----------+-------------+----------+------+-------------+
+| id_barang | nama_barang | harga    | stok | id_supplier |
++-----------+-------------+----------+------+-------------+
+|         1 | Motor       | 20000000 |   31 |           1 |
+|         2 | Kulkas      |  2000000 |   44 |           2 |
+|         3 | Mesin Cuci  |  1000000 |   18 |           3 |
+|         4 | Televisi    |  1500000 |   68 |           4 |
++-----------+-------------+----------+------+-------------+
+4 rows in set (0.001 sec)
+
+MariaDB [penjualan]>

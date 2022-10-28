@@ -1,0 +1,439 @@
+Microsoft Windows [Version 10.0.19044.2130]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\LENOVO>cd..
+
+C:\Users>cd..
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 322
+Server version: 10.4.24-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use belajar_db;
+Database changed
+MariaDB [belajar_db]> show tables;
++----------------------+
+| Tables_in_belajar_db |
++----------------------+
+| categories           |
+| customers            |
+| products             |
++----------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [belajar_db]> create table sellers(
+    -> id int not null auto_increment,
+    -> name varchar(100),
+    -> email varchar(100),
+    -> primary key (id),
+    -> unique key email_unique (email),
+    -> index name_index (name)) engine = InnoDB;
+Query OK, 0 rows affected (0.051 sec)
+
+MariaDB [belajar_db]> desc sellers;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(100) | YES  | MUL | NULL    |                |
+| email | varchar(100) | YES  | UNI | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+3 rows in set (0.058 sec)
+
+MariaDB [belajar_db]> insert into sellers
+    -> (name, email)
+    -> values ('Elva', 'elva@gmail.com');
+Query OK, 1 row affected (0.040 sec)
+
+MariaDB [belajar_db]> select * from sellers;
++----+------+----------------+
+| id | name | email          |
++----+------+----------------+
+|  1 | Elva | elva@gmail.com |
++----+------+----------------+
+1 row in set (0.001 sec)
+
+MariaDB [belajar_db]> insert into sellers(name, email)
+    -> values ('Nazlita', 'nazlita@gmail.com'),
+    -> ;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 2
+MariaDB [belajar_db]> alter table customers drop constraint email_unique;
+ERROR 1091 (42000): Can't DROP CONSTRAINT `email_unique`; check that it exists
+MariaDB [belajar_db]> alter table sellers drop constraint email_unique;
+Query OK, 0 rows affected (0.058 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [belajar_db]> select * from sellers;
++----+------+----------------+
+| id | name | email          |
++----+------+----------------+
+|  1 | Elva | elva@gmail.com |
++----+------+----------------+
+1 row in set (0.001 sec)
+
+MariaDB [belajar_db]> desc sellers;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(100) | YES  | MUL | NULL    |                |
+| email | varchar(100) | YES  |     | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+3 rows in set (0.051 sec)
+
+MariaDB [belajar_db]> alter table sellers add constraint email_unique;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 1
+MariaDB [belajar_db]> alter table sellers add constraint email_unique (email);
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(email)' at line 1
+MariaDB [belajar_db]> alter table customers ADD constraint email_unique UNIQUE (email);
+ERROR 1062 (23000): Duplicate entry 'nazlita@gmail.com' for key 'email_unique'
+MariaDB [belajar_db]> alter table sellers ADD constraint email_unique UNIQUE (email);
+Query OK, 0 rows affected (0.048 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [belajar_db]> desc sellers;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(100) | YES  | MUL | NULL    |                |
+| email | varchar(100) | YES  | UNI | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+3 rows in set (0.043 sec)
+
+MariaDB [belajar_db]> desc products;
++-------------+---------------------------------------+------+-----+---------------------+-------+
+| Field       | Type                                  | Null | Key | Default             | Extra |
++-------------+---------------------------------------+------+-----+---------------------+-------+
+| id          | varchar(10)                           | NO   | PRI | NULL                |       |
+| name        | varchar(100)                          | NO   |     | NULL                |       |
+| category    | enum('Makanan','Minuman','Lain-Lain') | YES  |     | NULL                |       |
+| description | text                                  | YES  |     | NULL                |       |
+| price       | int(10) unsigned                      | NO   |     | NULL                |       |
+| quantity    | int(10) unsigned                      | NO   |     | 0                   |       |
+| created_at  | timestamp                             | NO   |     | current_timestamp() |       |
++-------------+---------------------------------------+------+-----+---------------------+-------+
+7 rows in set (0.043 sec)
+
+MariaDB [belajar_db]> create table products1(
+    -> id varchar(10) not null primary key,
+    -> name varchar(100) not null,
+    -> description text,
+    -> price int unsigned not null,
+    -> quantity int unsigned not null default 0,
+    -> created_at timestamp not null default curent_timestamp,
+    -> fulltext product_search (name, description)) engine = InnoDB;
+ERROR 1054 (42S22): Unknown column 'curent_timestamp' in 'DEFAULT'
+MariaDB [belajar_db]> create table products1(
+    -> id varchar(10) not null primary key,
+    -> name varchar(100) not null,
+    -> description text,
+    -> price int unsigned not null,
+    -> quantity int unsigned not null DEFAULT 0,
+    -> created_at timestamp not null default curent_timestamp,
+    -> fulltext product_search (name, description)) engine = InnoDB;
+ERROR 1054 (42S22): Unknown column 'curent_timestamp' in 'DEFAULT'
+MariaDB [belajar_db]> create table products1(
+    -> id varchar(10) not null primary key,
+    -> name varchar(100) not null,
+    -> description text,
+    -> price int unsigned not null,
+    -> quantity int unsigned not null default 0,
+    -> created_at timestamp not null default current_timestamp,
+    -> fulltext product_search (name, description)) engine = InnoDB;
+Query OK, 0 rows affected (0.098 sec)
+
+MariaDB [belajar_db]> select * from products1;
+Empty set (0.003 sec)
+
+MariaDB [belajar_db]> desc products1;
++-------------+------------------+------+-----+---------------------+-------+
+| Field       | Type             | Null | Key | Default             | Extra |
++-------------+------------------+------+-----+---------------------+-------+
+| id          | varchar(10)      | NO   | PRI | NULL                |       |
+| name        | varchar(100)     | NO   | MUL | NULL                |       |
+| description | text             | YES  |     | NULL                |       |
+| price       | int(10) unsigned | NO   |     | NULL                |       |
+| quantity    | int(10) unsigned | NO   |     | 0                   |       |
+| created_at  | timestamp        | NO   |     | current_timestamp() |       |
++-------------+------------------+------+-----+---------------------+-------+
+6 rows in set (0.049 sec)
+
+MariaDB [belajar_db]> insert into products1(name, description, price, quantity)
+    -> values ('Tas', 'limited edition', 500000, 5);
+Query OK, 1 row affected, 1 warning (0.003 sec)
+
+MariaDB [belajar_db]> select * from products1;
++----+------+-----------------+--------+----------+---------------------+
+| id | name | description     | price  | quantity | created_at          |
++----+------+-----------------+--------+----------+---------------------+
+|    | Tas  | limited edition | 500000 |        5 | 2022-10-25 14:33:33 |
++----+------+-----------------+--------+----------+---------------------+
+1 row in set (0.000 sec)
+
+MariaDB [belajar_db]> select * from products1;
++----+------+-----------------+--------+----------+---------------------+
+| id | name | description     | price  | quantity | created_at          |
++----+------+-----------------+--------+----------+---------------------+
+|  1 | Tas  | limited edition | 500000 |        5 | 2022-10-25 14:33:33 |
++----+------+-----------------+--------+----------+---------------------+
+1 row in set (0.000 sec)
+
+MariaDB [belajar_db]> desc products;
++-------------+---------------------------------------+------+-----+---------------------+-------+
+| Field       | Type                                  | Null | Key | Default             | Extra |
++-------------+---------------------------------------+------+-----+---------------------+-------+
+| id          | varchar(10)                           | NO   | PRI | NULL                |       |
+| name        | varchar(100)                          | NO   |     | NULL                |       |
+| category    | enum('Makanan','Minuman','Lain-Lain') | YES  |     | NULL                |       |
+| description | text                                  | YES  |     | NULL                |       |
+| price       | int(10) unsigned                      | NO   |     | NULL                |       |
+| quantity    | int(10) unsigned                      | NO   |     | 0                   |       |
+| created_at  | timestamp                             | NO   |     | current_timestamp() |       |
++-------------+---------------------------------------+------+-----+---------------------+-------+
+7 rows in set (0.049 sec)
+
+MariaDB [belajar_db]> select * from products where match(name, description) against('ayam' in natural language mode);
+ERROR 1191 (HY000): Can't find FULLTEXT index matching the column list
+MariaDB [belajar_db]> select * from products;
++-------+-------------------+-----------+---------------------------+-------+----------+---------------------+
+| id    | name              | category  | description               | price | quantity | created_at          |
++-------+-------------------+-----------+---------------------------+-------+----------+---------------------+
+| P0001 | Mie Ayam Original | Makanan   | NULL                      | 15000 |      100 | 2022-10-24 14:52:04 |
+| P0002 | Mie Ayam Bakso    | NULL      | Mie Ayam Original + Bakso | 20000 |      100 | 2022-10-24 14:53:14 |
+| P0003 | Mie Ayam Ceker    | Makanan   | Mie Ayam Original + Ceker | 20000 |      100 | 2022-10-24 14:53:14 |
+| P0004 | Mie Ayam Spesial  | NULL      | NULL                      | 25000 |      100 | 2022-10-24 14:53:14 |
+| P0005 | Mie Ayam Yamin    | NULL      | NULL                      | 35000 |      100 | 2022-10-24 14:53:14 |
+| P0006 | Bakso Rusuk       | Makanan   | NULL                      | 25000 |      200 | 2022-10-24 15:01:04 |
+| P0007 | Es Jeruk          | Minuman   | NULL                      | 10000 |      300 | 2022-10-24 15:01:04 |
+| P0008 | Es Campur         | Minuman   | NULL                      | 15000 |      500 | 2022-10-24 15:01:04 |
+| P0010 | Kerupuk           | Lain-Lain | NULL                      |  2500 |     1000 | 2022-10-24 15:01:04 |
+| P0011 | Keripik Udang     | Lain-Lain | NULL                      | 10000 |      300 | 2022-10-24 15:01:04 |
+| P0012 | Es Krim           | Lain-Lain | NULL                      |  5000 |      200 | 2022-10-24 15:01:04 |
+| P0013 | Mie Ayam Jamur    | Makanan   | NULL                      | 20000 |       50 | 2022-10-24 15:01:04 |
+| P0014 | Bakso Telor       | Makanan   | NULL                      | 20000 |      150 | 2022-10-24 15:01:04 |
+| P0015 | Bakso Jando       | Makanan   | NULL                      | 25000 |      300 | 2022-10-24 15:01:04 |
++-------+-------------------+-----------+---------------------------+-------+----------+---------------------+
+14 rows in set (0.038 sec)
+
+MariaDB [belajar_db]> select * from products where match(name, description) against('Ayam' in natural language mode);
+ERROR 1191 (HY000): Can't find FULLTEXT index matching the column list
+MariaDB [belajar_db]> select * from products where match(name, description) against('Ayam' in natural language mode);
+ERROR 1191 (HY000): Can't find FULLTEXT index matching the column list
+MariaDB [belajar_db]> insert into products
+    -> fulltext product_search (name, description) engine = InnoDB;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'fulltext product_search (name, description) engine = InnoDB' at line 2
+MariaDB [belajar_db]> create table products1(
+    -> fulltext product_search (name, description)) engine = InnoDB;
+ERROR 1050 (42S01): Table 'products1' already exists
+MariaDB [belajar_db]> insert into products1(name, description, price, quantity)
+    -> values ('Baju', 'bahan lembut', 50000, 55),
+    -> ('Baju Muslim', 'bahan adem', 300000, 25);
+Query OK, 2 rows affected (0.003 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [belajar_db]> select * from products1;
++----+-------------+-----------------+--------+----------+---------------------+
+| id | name        | description     | price  | quantity | created_at          |
++----+-------------+-----------------+--------+----------+---------------------+
+|  1 | Tas         | limited edition | 500000 |        5 | 2022-10-25 14:33:33 |
+|  2 | Baju        | bahan lembut    |  50000 |       55 | 2022-10-25 14:45:12 |
+|  3 | Baju Muslim | bahan adem      | 300000 |       25 | 2022-10-25 14:45:12 |
++----+-------------+-----------------+--------+----------+---------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [belajar_db]> select * from products where match(name, description) against('Baju' in natural language mode);
+ERROR 1191 (HY000): Can't find FULLTEXT index matching the column list
+MariaDB [belajar_db]> select * from products1 where match(name, description) against('Baju' in natural language mode);
++----+-------------+--------------+--------+----------+---------------------+
+| id | name        | description  | price  | quantity | created_at          |
++----+-------------+--------------+--------+----------+---------------------+
+|  2 | Baju        | bahan lembut |  50000 |       55 | 2022-10-25 14:45:12 |
+|  3 | Baju Muslim | bahan adem   | 300000 |       25 | 2022-10-25 14:45:12 |
++----+-------------+--------------+--------+----------+---------------------+
+2 rows in set (0.039 sec)
+
+MariaDB [belajar_db]> insert into products1(name, description, price, quantity)
+    -> values ('Tas Ransel', 'tahan air', 100000, 63),
+    -> ('Tas rajut', 'desain unik', 150000, 33);
+Query OK, 2 rows affected (0.040 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [belajar_db]> select * from products1 where match(name, description) against('+Baju -Muslim' in natural language mode);
++----+-------------+--------------+--------+----------+---------------------+
+| id | name        | description  | price  | quantity | created_at          |
++----+-------------+--------------+--------+----------+---------------------+
+|  3 | Baju Muslim | bahan adem   | 300000 |       25 | 2022-10-25 14:45:12 |
+|  2 | Baju        | bahan lembut |  50000 |       55 | 2022-10-25 14:45:12 |
++----+-------------+--------------+--------+----------+---------------------+
+2 rows in set (0.001 sec)
+
+MariaDB [belajar_db]> select * from products1 where match(name, description) against('+Baju -Tas' in natural language mode);
++----+-------------+-----------------+--------+----------+---------------------+
+| id | name        | description     | price  | quantity | created_at          |
++----+-------------+-----------------+--------+----------+---------------------+
+|  2 | Baju        | bahan lembut    |  50000 |       55 | 2022-10-25 14:45:12 |
+|  3 | Baju Muslim | bahan adem      | 300000 |       25 | 2022-10-25 14:45:12 |
+|  1 | Tas         | limited edition | 500000 |        5 | 2022-10-25 14:33:33 |
+|  4 | Tas Ransel  | tahan air       | 100000 |       63 | 2022-10-25 14:47:18 |
+|  5 | Tas rajut   | desain unik     | 150000 |       33 | 2022-10-25 14:47:18 |
++----+-------------+-----------------+--------+----------+---------------------+
+5 rows in set (0.001 sec)
+
+MariaDB [belajar_db]> desc products1;
++-------------+------------------+------+-----+---------------------+----------------+
+| Field       | Type             | Null | Key | Default             | Extra          |
++-------------+------------------+------+-----+---------------------+----------------+
+| id          | int(11)          | NO   | PRI | NULL                | auto_increment |
+| name        | varchar(100)     | NO   | MUL | NULL                |                |
+| description | text             | YES  |     | NULL                |                |
+| price       | int(10) unsigned | NO   |     | NULL                |                |
+| quantity    | int(10) unsigned | NO   |     | 0                   |                |
+| created_at  | timestamp        | NO   |     | current_timestamp() |                |
++-------------+------------------+------+-----+---------------------+----------------+
+6 rows in set (0.051 sec)
+
+MariaDB [belajar_db]> alter table products add fulltext product_search (name, description);
+Query OK, 0 rows affected (0.171 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [belajar_db]> select * from products where match(name, description) against('Ayam' in natural language mode);
++-------+-------------------+----------+---------------------------+-------+----------+---------------------+
+| id    | name              | category | description               | price | quantity | created_at          |
++-------+-------------------+----------+---------------------------+-------+----------+---------------------+
+| P0002 | Mie Ayam Bakso    | NULL     | Mie Ayam Original + Bakso | 20000 |      100 | 2022-10-24 14:53:14 |
+| P0003 | Mie Ayam Ceker    | Makanan  | Mie Ayam Original + Ceker | 20000 |      100 | 2022-10-24 14:53:14 |
+| P0001 | Mie Ayam Original | Makanan  | NULL                      | 15000 |      100 | 2022-10-24 14:52:04 |
+| P0004 | Mie Ayam Spesial  | NULL     | NULL                      | 25000 |      100 | 2022-10-24 14:53:14 |
+| P0005 | Mie Ayam Yamin    | NULL     | NULL                      | 35000 |      100 | 2022-10-24 14:53:14 |
+| P0013 | Mie Ayam Jamur    | Makanan  | NULL                      | 20000 |       50 | 2022-10-24 15:01:04 |
++-------+-------------------+----------+---------------------------+-------+----------+---------------------+
+6 rows in set (0.001 sec)
+
+MariaDB [belajar_db]> select * from products1 where match(name, description) against('+Mie -Bakso' in natural language mode);
+Empty set (0.001 sec)
+
+MariaDB [belajar_db]> select * from products1 where match(name, description) against('+Mie -Ayam' in natural language mode);
+Empty set (0.003 sec)
+
+MariaDB [belajar_db]> select * from products where match(name, description) against('+Mie -Bakso' in natural language mode);
++-------+-------------------+----------+---------------------------+-------+----------+---------------------+
+| id    | name              | category | description               | price | quantity | created_at          |
++-------+-------------------+----------+---------------------------+-------+----------+---------------------+
+| P0002 | Mie Ayam Bakso    | NULL     | Mie Ayam Original + Bakso | 20000 |      100 | 2022-10-24 14:53:14 |
+| P0006 | Bakso Rusuk       | Makanan  | NULL                      | 25000 |      200 | 2022-10-24 15:01:04 |
+| P0014 | Bakso Telor       | Makanan  | NULL                      | 20000 |      150 | 2022-10-24 15:01:04 |
+| P0015 | Bakso Jando       | Makanan  | NULL                      | 25000 |      300 | 2022-10-24 15:01:04 |
+| P0003 | Mie Ayam Ceker    | Makanan  | Mie Ayam Original + Ceker | 20000 |      100 | 2022-10-24 14:53:14 |
+| P0001 | Mie Ayam Original | Makanan  | NULL                      | 15000 |      100 | 2022-10-24 14:52:04 |
+| P0004 | Mie Ayam Spesial  | NULL     | NULL                      | 25000 |      100 | 2022-10-24 14:53:14 |
+| P0005 | Mie Ayam Yamin    | NULL     | NULL                      | 35000 |      100 | 2022-10-24 14:53:14 |
+| P0013 | Mie Ayam Jamur    | Makanan  | NULL                      | 20000 |       50 | 2022-10-24 15:01:04 |
++-------+-------------------+----------+---------------------------+-------+----------+---------------------+
+9 rows in set (0.001 sec)
+
+MariaDB [belajar_db]> select * from products where match(name, description) against('+Mie -Bakso' with query expansion);
++-------+-------------------+----------+---------------------------+-------+----------+---------------------+
+| id    | name              | category | description               | price | quantity | created_at          |
++-------+-------------------+----------+---------------------------+-------+----------+---------------------+
+| P0003 | Mie Ayam Ceker    | Makanan  | Mie Ayam Original + Ceker | 20000 |      100 | 2022-10-24 14:53:14 |
+| P0006 | Bakso Rusuk       | Makanan  | NULL                      | 25000 |      200 | 2022-10-24 15:01:04 |
+| P0014 | Bakso Telor       | Makanan  | NULL                      | 20000 |      150 | 2022-10-24 15:01:04 |
+| P0015 | Bakso Jando       | Makanan  | NULL                      | 25000 |      300 | 2022-10-24 15:01:04 |
+| P0004 | Mie Ayam Spesial  | NULL     | NULL                      | 25000 |      100 | 2022-10-24 14:53:14 |
+| P0005 | Mie Ayam Yamin    | NULL     | NULL                      | 35000 |      100 | 2022-10-24 14:53:14 |
+| P0013 | Mie Ayam Jamur    | Makanan  | NULL                      | 20000 |       50 | 2022-10-24 15:01:04 |
+| P0002 | Mie Ayam Bakso    | NULL     | Mie Ayam Original + Bakso | 20000 |      100 | 2022-10-24 14:53:14 |
+| P0001 | Mie Ayam Original | Makanan  | NULL                      | 15000 |      100 | 2022-10-24 14:52:04 |
++-------+-------------------+----------+---------------------------+-------+----------+---------------------+
+9 rows in set (0.014 sec)
+
+MariaDB [belajar_db]> select * from products where match(name, description) against('Bakso' with query expansion);
++-------+-------------------+----------+---------------------------+-------+----------+---------------------+
+| id    | name              | category | description               | price | quantity | created_at          |
++-------+-------------------+----------+---------------------------+-------+----------+---------------------+
+| P0006 | Bakso Rusuk       | Makanan  | NULL                      | 25000 |      200 | 2022-10-24 15:01:04 |
+| P0014 | Bakso Telor       | Makanan  | NULL                      | 20000 |      150 | 2022-10-24 15:01:04 |
+| P0015 | Bakso Jando       | Makanan  | NULL                      | 25000 |      300 | 2022-10-24 15:01:04 |
+| P0002 | Mie Ayam Bakso    | NULL     | Mie Ayam Original + Bakso | 20000 |      100 | 2022-10-24 14:53:14 |
+| P0003 | Mie Ayam Ceker    | Makanan  | Mie Ayam Original + Ceker | 20000 |      100 | 2022-10-24 14:53:14 |
+| P0001 | Mie Ayam Original | Makanan  | NULL                      | 15000 |      100 | 2022-10-24 14:52:04 |
+| P0004 | Mie Ayam Spesial  | NULL     | NULL                      | 25000 |      100 | 2022-10-24 14:53:14 |
+| P0005 | Mie Ayam Yamin    | NULL     | NULL                      | 35000 |      100 | 2022-10-24 14:53:14 |
+| P0013 | Mie Ayam Jamur    | Makanan  | NULL                      | 20000 |       50 | 2022-10-24 15:01:04 |
++-------+-------------------+----------+---------------------------+-------+----------+---------------------+
+9 rows in set (0.002 sec)
+
+MariaDB [belajar_db]> create table wishlist(
+    -> id int not null auto_increment primary key,
+    -> id_product varchar(10) not null,
+    -> description text,
+    -> constraint fk_wishlist_product
+    -> foreign key (id_product) references products (id)) engine = InnoDB;
+Query OK, 0 rows affected (0.027 sec)
+
+MariaDB [belajar_db]> desc wishlist;
++-------------+-------------+------+-----+---------+----------------+
+| Field       | Type        | Null | Key | Default | Extra          |
++-------------+-------------+------+-----+---------+----------------+
+| id          | int(11)     | NO   | PRI | NULL    | auto_increment |
+| id_product  | varchar(10) | NO   | MUL | NULL    |                |
+| description | text        | YES  |     | NULL    |                |
++-------------+-------------+------+-----+---------+----------------+
+3 rows in set (0.019 sec)
+
+MariaDB [belajar_db]>  select * from wishlist JOIN products ON (wishlist.id_product = products.id);
+Empty set (0.002 sec)
+
+MariaDB [belajar_db]> desc products;
++-------------+---------------------------------------+------+-----+---------------------+-------+
+| Field       | Type                                  | Null | Key | Default             | Extra |
++-------------+---------------------------------------+------+-----+---------------------+-------+
+| id          | varchar(10)                           | NO   | PRI | NULL                |       |
+| name        | varchar(100)                          | NO   | MUL | NULL                |       |
+| category    | enum('Makanan','Minuman','Lain-Lain') | YES  |     | NULL                |       |
+| description | text                                  | YES  |     | NULL                |       |
+| price       | int(10) unsigned                      | NO   |     | NULL                |       |
+| quantity    | int(10) unsigned                      | NO   |     | 0                   |       |
+| created_at  | timestamp                             | NO   |     | current_timestamp() |       |
++-------------+---------------------------------------+------+-----+---------------------+-------+
+7 rows in set (0.045 sec)
+
+MariaDB [belajar_db]> insert into wishlist
+    -> (id_product, description)
+    -> values ('AA1', 'Barang tidak tersedia');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`belajar_db`.`wishlist`, CONSTRAINT `fk_wishlist_product` FOREIGN KEY (`id_product`) REFERENCES `products` (`id`))
+MariaDB [belajar_db]> insert into wishlist(id_product, description)
+    -> values ('A1', 'Barang tidak tersedia');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`belajar_db`.`wishlist`, CONSTRAINT `fk_wishlist_product` FOREIGN KEY (`id_product`) REFERENCES `products` (`id`))
+MariaDB [belajar_db]>  select * from wishlist JOIN products ON (wishlist.id_product = products.id);
+Empty set (0.001 sec)
+
+MariaDB [belajar_db]> select * from wishlist;
+Empty set (0.001 sec)
+
+MariaDB [belajar_db]> insert into wishlist(id_product, description)
+    -> values ('A1', 'Barang tidak tersedia');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`belajar_db`.`wishlist`, CONSTRAINT `fk_wishlist_product` FOREIGN KEY (`id_product`) REFERENCES `products` (`id`))
+MariaDB [belajar_db]> alter table wishlist add constraint fk_wishlist_product
+    -> foreign key (id_product) references products (id)
+    -> on delete cascade on update cascade;
+ERROR 1005 (HY000): Can't create table `belajar_db`.`wishlist` (errno: 121 "Duplicate key on write or update")
+MariaDB [belajar_db]> use belajar_db;
+Database changed
+MariaDB [belajar_db]> insert into wishlist(id_product, description)
+    -> values ('A1', 'Barang tidak tersedia');
+ERROR 1452 (23000): Cannot add or update a child row: a foreign key constraint fails (`belajar_db`.`wishlist`, CONSTRAINT `fk_wishlist_product` FOREIGN KEY (`id_product`) REFERENCES `products` (`id`))
+MariaDB [belajar_db]>

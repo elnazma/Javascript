@@ -1,0 +1,142 @@
+Microsoft Windows [Version 10.0.19044.2130]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\LENOVO>cd..
+
+C:\Users>cd..
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.4.24-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> use belajar_db;
+Database changed
+MariaDB [belajar_db]> show tables;
++----------------------+
+| Tables_in_belajar_db |
++----------------------+
+| categories           |
+| customers            |
+| products             |
++----------------------+
+3 rows in set (0.001 sec)
+
+MariaDB [belajar_db]> desc categories;
++-------+--------------+------+-----+---------+-------+
+| Field | Type         | Null | Key | Default | Extra |
++-------+--------------+------+-----+---------+-------+
+| id    | varchar(10)  | NO   | PRI | NULL    |       |
+| name  | varchar(100) | NO   |     | NULL    |       |
++-------+--------------+------+-----+---------+-------+
+2 rows in set (0.025 sec)
+
+MariaDB [belajar_db]> select * from categories;
++-------+-----------+
+| id    | name      |
++-------+-----------+
+| C0001 | Makanan   |
+| C0002 | Minuman   |
+| C0003 | Lain-lain |
++-------+-----------+
+3 rows in set (0.009 sec)
+
+MariaDB [belajar_db]> desc customers;
++------------+--------------+------+-----+---------+----------------+
+| Field      | Type         | Null | Key | Default | Extra          |
++------------+--------------+------+-----+---------+----------------+
+| id         | int(11)      | NO   | PRI | NULL    | auto_increment |
+| email      | varchar(100) | NO   | UNI | NULL    |                |
+| first_name | varchar(100) | NO   |     | NULL    |                |
+| last_name  | varchar(100) | YES  |     | NULL    |                |
++------------+--------------+------+-----+---------+----------------+
+4 rows in set (0.010 sec)
+
+MariaDB [belajar_db]> select * from customers;
++----+-------------------+------------+-----------+
+| id | email             | first_name | last_name |
++----+-------------------+------------+-----------+
+|  1 | nazlita@gmail.com | Elva       | Nazlita   |
++----+-------------------+------------+-----------+
+1 row in set (0.006 sec)
+
+MariaDB [belajar_db]> desc product;
+ERROR 1146 (42S02): Table 'belajar_db.product' doesn't exist
+MariaDB [belajar_db]> desc products;
++-------------+---------------------------------------+------+-----+---------------------+-------+
+| Field       | Type                                  | Null | Key | Default             | Extra |
++-------------+---------------------------------------+------+-----+---------------------+-------+
+| id          | varchar(10)                           | NO   | PRI | NULL                |       |
+| name        | varchar(100)                          | NO   |     | NULL                |       |
+| category    | enum('Makanan','Minuman','Lain-Lain') | YES  |     | NULL                |       |
+| description | text                                  | YES  |     | NULL                |       |
+| price       | int(10) unsigned                      | NO   |     | NULL                |       |
+| quantity    | int(10) unsigned                      | NO   |     | 0                   |       |
+| created_at  | timestamp                             | NO   |     | current_timestamp() |       |
++-------------+---------------------------------------+------+-----+---------------------+-------+
+7 rows in set (0.024 sec)
+
+MariaDB [belajar_db]> select * from products;
++-------+-------------------+-----------+---------------------------+-------+----------+---------------------+
+| id    | name              | category  | description               | price | quantity | created_at          |
++-------+-------------------+-----------+---------------------------+-------+----------+---------------------+
+| P0001 | Mie Ayam Original | Makanan   | NULL                      | 15000 |      100 | 2022-10-24 14:52:04 |
+| P0002 | Mie Ayam Bakso    | NULL      | Mie Ayam Original + Bakso | 20000 |      100 | 2022-10-24 14:53:14 |
+| P0003 | Mie Ayam Ceker    | Makanan   | Mie Ayam Original + Ceker | 20000 |      100 | 2022-10-24 14:53:14 |
+| P0004 | Mie Ayam Spesial  | NULL      | NULL                      | 25000 |      100 | 2022-10-24 14:53:14 |
+| P0005 | Mie Ayam Yamin    | NULL      | NULL                      | 35000 |      100 | 2022-10-24 14:53:14 |
+| P0006 | Bakso Rusuk       | Makanan   | NULL                      | 25000 |      200 | 2022-10-24 15:01:04 |
+| P0007 | Es Jeruk          | Minuman   | NULL                      | 10000 |      300 | 2022-10-24 15:01:04 |
+| P0008 | Es Campur         | Minuman   | NULL                      | 15000 |      500 | 2022-10-24 15:01:04 |
+| P0010 | Kerupuk           | Lain-Lain | NULL                      |  2500 |     1000 | 2022-10-24 15:01:04 |
+| P0011 | Keripik Udang     | Lain-Lain | NULL                      | 10000 |      300 | 2022-10-24 15:01:04 |
+| P0012 | Es Krim           | Lain-Lain | NULL                      |  5000 |      200 | 2022-10-24 15:01:04 |
+| P0013 | Mie Ayam Jamur    | Makanan   | NULL                      | 20000 |       50 | 2022-10-24 15:01:04 |
+| P0014 | Bakso Telor       | Makanan   | NULL                      | 20000 |      150 | 2022-10-24 15:01:04 |
+| P0015 | Bakso Jando       | Makanan   | NULL                      | 25000 |      300 | 2022-10-24 15:01:04 |
++-------+-------------------+-----------+---------------------------+-------+----------+---------------------+
+14 rows in set (0.001 sec)
+
+MariaDB [belajar_db]> alter table customers drop constraint email_unique;
+Query OK, 0 rows affected (0.029 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+MariaDB [belajar_db]> select * from customers;
++----+-------------------+------------+-----------+
+| id | email             | first_name | last_name |
++----+-------------------+------------+-----------+
+|  1 | nazlita@gmail.com | Elva       | Nazlita   |
++----+-------------------+------------+-----------+
+1 row in set (0.000 sec)
+
+MariaDB [belajar_db]> insert into customers
+    -> values;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '' at line 2
+MariaDB [belajar_db]> insert into customers(email, first_name, last_name)
+    -> values ('nazlita@gmail.com', 'Nazlita', 'Maulydia');
+Query OK, 1 row affected (0.014 sec)
+
+MariaDB [belajar_db]> select * from customers;
++----+-------------------+------------+-----------+
+| id | email             | first_name | last_name |
++----+-------------------+------------+-----------+
+|  1 | nazlita@gmail.com | Elva       | Nazlita   |
+|  2 | nazlita@gmail.com | Nazlita    | Maulydia  |
++----+-------------------+------------+-----------+
+2 rows in set (0.000 sec)
+
+MariaDB [belajar_db]> alter table customers ADD constraint email_unique UNIQUE (email);
+ERROR 1062 (23000): Duplicate entry 'nazlita@gmail.com' for key 'email_unique'
+MariaDB [belajar_db]>
+MariaDB [belajar_db]>
