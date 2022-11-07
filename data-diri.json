@@ -1,0 +1,42 @@
+{
+    "id": 1,
+    "stuId": 5260,
+    "name": "Elva Nazlita Maulydia",
+    "track": "DATA ENGINEER",
+    "circle": 18,
+    "img": "https://avatars.githubusercontent.com/u/111473569?v=4",
+
+    "description": {
+        "intro": "Hi, Saya Elva Nazlita Maulydia. Ingin menjadi seorang Programmer yang berfokus di Data Engineer.",
+        "introdetails": "Software Engineer | Backend | HTML | CSS | JavaScript | PHP | MySQL | NodeJS | VB | DOM | Analytical Skills, problem solver with keen eyes for details."
+    },
+    "socialmedia": {
+        "github": "https://github.com/nzlxxmld"
+    },
+
+    "experience": {
+        "first" : "SDN Bulungan",
+        "second": "MTs. Mamba'un Nidhom",
+        "third" : "SMK Salafiyah, Prodi RPL",
+        "fourth": "PKL di CV Ardata Media Semarang"
+    },
+
+    "project": {
+        "first": {
+            "projectname": "Weather App",
+            "projectdescription": "Sebuah sistem yang bisa memprediksi cuaca dalam tiga hari. Sistem akan menampilkan tangga, suhu, cuaca, temperatur, dll.",
+            "projectlink": "https://github.com/nzlxxmld/Javascript/tree/main/Modules%20JS/tugas-weather-elva"
+        },
+        "second": {
+            "projectname": "TWSTUDY Web",
+            "projectdescription": "Membuat website menggunakan HTML, CSS, Bootstrap, and Javascript.",
+            "projectlink": "https://github.com/nzlxxmld/Javascript/tree/main/Document%20Object%20Model/TWSTUDY/starter%20template%20-%20twstudy/"
+        },
+
+        "third": {
+            "projectname": "Generate QR code",
+            "projectdescription": "Membuat code QR menggunakan JSON",
+            "projectlink": "https://github.com/nzlxxmld/jsqr.github.io"
+        }
+    }
+}

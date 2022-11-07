@@ -1,0 +1,61 @@
+Microsoft Windows [Version 10.0.19044.2130]
+(c) Microsoft Corporation. All rights reserved.
+
+C:\Users\LENOVO>cd..
+
+C:\Users>cd..
+
+C:\>cd xampp
+
+C:\xampp>cd mysql
+
+C:\xampp\mysql>cd bin
+
+C:\xampp\mysql\bin>mysql -u root -p
+Enter password:
+Welcome to the MariaDB monitor.  Commands end with ; or \g.
+Your MariaDB connection id is 9
+Server version: 10.4.24-MariaDB mariadb.org binary distribution
+
+Copyright (c) 2000, 2018, Oracle, MariaDB Corporation Ab and others.
+
+Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
+
+MariaDB [(none)]> create database db_expressjs;
+Query OK, 1 row affected (0.002 sec)
+
+MariaDB [(none)]> use db_expressjs;
+Database changed
+MariaDB [db_expressjs]> create table customers(
+    -> id int(11) not null primary key auto_increment,
+    -> name varchar(100) not null,
+    -> email varchar(50) not null) ENGINE = InnoDB;
+Query OK, 0 rows affected (0.060 sec)
+
+MariaDB [db_expressjs]> desc customers;
++-------+--------------+------+-----+---------+----------------+
+| Field | Type         | Null | Key | Default | Extra          |
++-------+--------------+------+-----+---------+----------------+
+| id    | int(11)      | NO   | PRI | NULL    | auto_increment |
+| name  | varchar(100) | NO   |     | NULL    |                |
+| email | varchar(50)  | NO   |     | NULL    |                |
++-------+--------------+------+-----+---------+----------------+
+3 rows in set (0.016 sec)
+
+MariaDB [db_expressjs]> insert into customers
+    -> (name, email)
+    -> values ('Elva Nazlita', 'nazlitaelva@gmail.com'),
+    -> ('Nazlita Maulydia', 'nazmld@gmail.com');
+Query OK, 2 rows affected (0.026 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+MariaDB [db_expressjs]> select * from customers;
++----+------------------+-----------------------+
+| id | name             | email                 |
++----+------------------+-----------------------+
+|  1 | Elva Nazlita     | nazlitaelva@gmail.com |
+|  2 | Nazlita Maulydia | nazmld@gmail.com      |
++----+------------------+-----------------------+
+2 rows in set (0.013 sec)
+
+MariaDB [db_expressjs]>

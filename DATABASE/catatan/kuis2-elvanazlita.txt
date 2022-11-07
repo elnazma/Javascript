@@ -73,7 +73,18 @@ MariaDB [penjualan]> create table pembeli(
     -> alamat varchar(100)) engine = InnoDB;
 Query OK, 0 rows affected (0.023 sec)
 
-MariaDB [penjualan]> create table transaksi(
+MariaDB [penjualan]> desc pembeli;
++---------------+-------------------------------+------+-----+---------+-------+
+| Field         | Type                          | Null | Key | Default | Extra |
++---------------+-------------------------------+------+-----+---------+-------+
+| id_pembeli    | varchar(10)                   | NO   | PRI | NULL    |       |
+| nama_pembeli  | varchar(100)                  | NO   |     | NULL    |       |
+| jenis_kelamin | enum('Laki-laki','Perempuan') | YES  |     | NULL    |       |
+| no_telp       | char(13)                      | YES  |     | NULL    |       |
+| alamat        | varchar(100)                  | YES  |     | NULL    |       |
++---------------+-------------------------------+------+-----+---------+-------+
+5 rows in set (0.018 sec)
+
     -> id_transaksi varchar(10) not null primary key,
     -> id_barang varchar(10) not null,
     -> id_pembeli varchar(10) not null,
@@ -373,6 +384,82 @@ MariaDB [penjualan]> select id_pembayaran, total_bayar FROM transaksi INNER JOIN
 +---------------+-------------+
 4 rows in set (0.001 sec)
 
+MariaDB [penjualan]> select DISTINCT nama_supplier FROM supplier UNION select DISTINCT nama_barang FROM barang;
++---------------+
+| nama_supplier |
++---------------+
+| Maulana       |
+| Maulydia      |
+| Khabila       |
+| Janoko        |
+| Jaket         |
+| Tas           |
+| Sepatu        |
+| Topi          |
++---------------+
+8 rows in set (0.000 sec)
+
+MariaDB [penjualan]> select DISTINCT nama_pembeli FROM pembeli UNION select DISTINCT total_bayar FROM pembayaran;
++--------------+
+| nama_pembeli |
++--------------+
+| Malik        |
+| Nazlita      |
+| Abil         |
+| Dwi          |
+| 500000       |
+| 700000       |
+| 570000       |
+| 100000       |
++--------------+
+8 rows in set (0.001 sec)
+
+MariaDB [penjualan]> select DISTINCT nama_pembeli FROM pembeli UNION select DISTINCT total_bayar FROM pembayaran;
++--------------+
+| nama_pembeli | 
++--------------+
+| Malik        |
+| Nazlita      |
+| Abil         |
+| Dwi          |
+| 500000       |
+| 700000       |
+| 570000       |
+| 100000       |
++--------------+
+8 rows in set (0.001 sec)
+
+
+MariaDB [penjualan]> select DISTINCT id_pembeli from pembeli UNION ALL select DISTINCT id_pembeli from transaksi;
++------------+
+| id_pembeli |
++------------+
+| P001       |
+| P002       |
+| P003       |
+| P004       |
+| P001       |
+| P002       |
+| P003       |
+| P004       |
++------------+
+8 rows in set (0.038 sec)
+
+MariaDB [penjualan]> select DISTINCT id_barang from barang UNION ALL select DISTINCT id_barang from transaksi;
++-----------+
+| id_barang |
++-----------+
+| B001      |
+| B002      |
+| B003      |
+| B004      |
+| B001      |
+| B002      |
+| B003      |
+| B004      |
++-----------+
+8 rows in set (0.045 sec)
+
 MariaDB [penjualan]> select * from supplier LEFT JOIN barang ON supplier.id_supplier = barang.id_supplier;
 +-------------+---------------+---------------+--------+-----------+-------------+--------+------+-------------+
 | id_supplier | nama_supplier | no_telp       | alamat | id_barang | nama_barang | harga  | stok | id_supplier |
@@ -639,47 +726,3 @@ MariaDB [penjualan]> select nama_supplier, no_telp, nama_barang, harga from supp
 +---------------+---------------+-------------+--------+
 16 rows in set (0.001 sec)
 
-MariaDB [penjualan]> select DISTINCT nama_supplier FROM supplier UNION select DISTINCT nama_barang FROM barang;
-+---------------+
-| nama_supplier |
-+---------------+
-| Maulana       |
-| Maulydia      |
-| Khabila       |
-| Janoko        |
-| Jaket         |
-| Tas           |
-| Sepatu        |
-| Topi          |
-+---------------+
-8 rows in set (0.000 sec)
-
-MariaDB [penjualan]> select DISTINCT nama_pembeli FROM pembeli UNION select DISTINCT total_bayar FROM pembayaran;
-+--------------+
-| nama_pembeli |
-+--------------+
-| Malik        |
-| Nazlita      |
-| Abil         |
-| Dwi          |
-| 500000       |
-| 700000       |
-| 570000       |
-| 100000       |
-+--------------+
-8 rows in set (0.001 sec)
-
-MariaDB [penjualan]> select DISTINCT nama_pembeli FROM pembeli UNION select DISTINCT total_bayar FROM pembayaran;
-+--------------+
-| nama_pembeli |
-+--------------+
-| Malik        |
-| Nazlita      |
-| Abil         |
-| Dwi          |
-| 500000       |
-| 700000       |
-| 570000       |
-| 100000       |
-+--------------+
-8 rows in set (0.001 sec)
